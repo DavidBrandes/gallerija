@@ -1,0 +1,51 @@
+@value hover-color from '/src/style/colors.css';
+
+.container {
+  position: sticky;
+  top: 0px;
+
+  width: 100%;
+
+  padding: 0.8rem 2.4rem;
+
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.05);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 250%, 0% 250%);
+
+  font-size: 2rem;
+}
+
+.title {
+  flex-grow: 1;
+  display: flex;
+
+  letter-spacing: 0.075rem;
+  stroke-width: 1.5;
+}
+
+.title:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.links {
+  letter-spacing: 0.05rem;
+}
+
+.user {
+  display: flex;
+  justify-content: right;
+
+  gap: 2.4rem;
+}
+
+.item:hover {
+  color: hover-color;
+  cursor: pointer;
+}

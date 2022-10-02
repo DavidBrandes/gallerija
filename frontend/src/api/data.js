@@ -1,0 +1,233 @@
+class Data {
+  constructor() {
+    this.date = new Date();
+    this.items = [
+      {
+        srcLow: [
+          "/images/Maeda_Primavesi.webp",
+          "/images/Maeda_Primavesi.webp",
+        ],
+        srcHigh: [
+          "/images/Maeda_Primavesi.webp",
+          "/images/Maeda_Primavesi.webp",
+        ],
+        title: "Mäda Primavesi",
+        subTitle: "Gustav Klimt",
+        id: 0,
+        combinedStakes: 0,
+        requiredStake: 1000,
+        vestingStarted: false,
+        vestingEnded: false,
+        biddingStarted: false,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "Germany",
+        },
+      },
+      {
+        srcLow: ["/images/The_trees.webp", "/images/The_trees.webp"],
+        srcHigh: ["/images/The_trees.webp", "/images/The_trees.webp"],
+        title: "The Trees, Early Afternoon",
+        subTitle: "William A. Harper",
+        id: 1,
+        combinedStakes: 0,
+        requiredStake: 400,
+        vestingStarted: false,
+        vestingEnded: false,
+        biddingStarted: false,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "USA",
+        },
+      },
+      {
+        srcLow: [
+          "/images/Standing_girl.webp",
+          "/images/Standing_girl.webp",
+          "/images/Standing_girl.webp",
+        ],
+        srcHigh: [
+          "/images/Standing_girl.webp",
+          "/images/Standing_girl.webp",
+          "/images/Standing_girl.webp",
+        ],
+        title: "Standing Girl, Back View",
+        subTitle: "Egon Schiele",
+        id: 2,
+        combinedStakes: 567.34,
+        requiredStake: 1200,
+        vestingStarted: true,
+        vestingEnded: false,
+        biddingStarted: false,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "Austria",
+        },
+      },
+      {
+        srcLow: ["/images/Garden_of_the_painter_at_Saint_clair.webp"],
+        srcHigh: ["/images/Garden_of_the_painter_at_Saint_clair.webp"],
+        title: "Garden of the Painter at Saint Clair",
+        subTitle: "Henri-Edmond Delacroix",
+        id: 3,
+        combinedStakes: 934.12,
+        requiredStake: 900,
+        vestingStarted: true,
+        vestingEnded: false,
+        biddingStarted: false,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "France",
+        },
+      },
+      {
+        srcLow: [
+          "/images/Nude_female_figure_holding_left_foot.webp",
+          "/images/Nude_female_figure_holding_left_foot.webp",
+          "/images/Nude_female_figure_holding_left_foot.webp",
+        ],
+        srcHigh: [
+          "/images/Nude_female_figure_holding_left_foot.webp",
+          "/images/Nude_female_figure_holding_left_foot.webp",
+          "/images/Nude_female_figure_holding_left_foot.webp",
+        ],
+        title: "Nude female figure holding left foot",
+        subTitle: "Auguste Rodin",
+        id: 4,
+        combinedStakes: 540.4,
+        requiredStake: 600,
+        vestingStarted: true,
+        vestingEnded: false,
+        biddingStarted: false,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "France",
+        },
+      },
+      {
+        srcLow: [
+          "/images/Still_life_with_apples.webp",
+          "/images/Still_life_with_apples.webp",
+        ],
+        srcHigh: [
+          "/images/Still_life_with_apples.webp",
+          "/images/Still_life_with_apples.webp",
+        ],
+        title: "Still Life with Apples and a Pot of Primroses",
+        subTitle: "Paul Cézanne",
+        id: 5,
+        combinedStakes: 812,
+        requiredStake: 350,
+        vestingStarted: true,
+        vestingEnded: true,
+        biddingStarted: true,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "France",
+        },
+      },
+      {
+        srcLow: ["/images/JUan_de_pareja.webp"],
+        srcHigh: ["/images/JUan_de_pareja.webp"],
+        title: "Juan de Pareja",
+        subTitle: "Diego Rodríguez de Silva y Velázquez",
+        id: 6,
+        combinedStakes: 902.3,
+        requiredStake: 500,
+        vestingStarted: true,
+        vestingEnded: true,
+        biddingStarted: true,
+        biddingEnded: false,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "Netherlands",
+        },
+      },
+      {
+        srcLow: [
+          "/images/View_of_heidelberg.webp",
+          "/images/View_of_heidelberg.webp",
+          "/images/View_of_heidelberg.webp",
+        ],
+        srcHigh: [
+          "/images/View_of_heidelberg.webp",
+          "/images/View_of_heidelberg.webp",
+          "/images/View_of_heidelberg.webp",
+        ],
+        title: "View of Heidelberg",
+        subTitle: "Jan Brueghel the Elder ",
+        id: 7,
+        combinedStakes: 1200.3,
+        requiredStake: 100,
+        vestingStarted: true,
+        vestingEnded: true,
+        biddingStarted: true,
+        biddingEnded: true,
+        vestingTimeStart: undefined,
+        vestingTimeEnd: undefined,
+        biddingTimeStart: undefined,
+        biddingTimeEnd: undefined,
+        description: {
+          Type: "Oil on Paper",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "Netherlands",
+        },
+      },
+    ];
+    this.nItems = this.items.length;
+  }
+
+  getItems(start, stop) {
+    return {
+      items: this.items.slice(start, stop),
+      hasMore: stop < this.nItems,
+    };
+  }
+
+  getItem(id) {
+    return this.items[Number(id)];
+  }
+}
+
+export default new Data();

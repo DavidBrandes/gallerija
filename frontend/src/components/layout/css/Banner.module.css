@@ -1,0 +1,24 @@
+@value primary from '/src/style/colors.css';
+
+.banner {
+  /* background-image: url(../../data/images/The_Repast_of_the_Lion.webp);
+    overflow: hidden;
+      background-size: cover;
+  background-position-x: center;
+  background-position-y: 24%;
+    max-height: 2586px;
+  height: 100vh; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+}
+
+.name {
+  font-size: 6.2rem;
+  letter-spacing: 0.75rem;
+  color: black;
+  margin: 0.8rem;
+}
