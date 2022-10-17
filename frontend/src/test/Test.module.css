@@ -1,0 +1,10 @@
+.child {
+  height: 500px;
+}
+
+.parent {
+  font-size: 30px;
+  height: 100%;
+  width: 100%;
+  /* background: linear-gradient(#e66465, #9198e5); */
+}

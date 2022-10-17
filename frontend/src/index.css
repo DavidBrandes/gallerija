@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Joan&family=Playfair+Display&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Aref+Ruqaa+Ink&display=swap");
 
 /*
 --- 01 TYPOGRAPHY SYSTEM
@@ -24,50 +23,33 @@ Large: 1.8
 -0.5px
 0.75px
 
---- 02 COLORS
-
-- Primary: #e67e22
-- Tints:
-#fdf2e9
-#fae5d3
-#eb984e
-
-- Shades: 
-#cf711f
-#45260a
-
-- Accents:
-- Greys
-
-#888
-#767676 (lightest grey allowed on #fff)
-#6f6f6f (lightest grey allowed on #fdf2e9)
-#555
-#333
-
---- 05 SHADOWS
+--- 02 SHADOWS
 
 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
 
---- 06 BORDER-RADIUS
+--- 03 BORDER-RADIUS
 
-Default: 9px
-Medium: 11px
+Default: 1px
 
---- 07 WHITESPACE
+--- 04 WHITESPACE
 
 - Spacing system (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+-- 05 Breakpoints
+
+75em (1200px) / 60em (960px) / 50em (800px) / 40em (640px) / 35em (560px) / 
+
 */
 
 * {
-  padding: 0;
+  /* padding: 0;
   margin: 0;
-  box-sizing: border-box;
-  letter-spacing: 0.05rem;
+  box-sizing: border-box; */
 }
 
 html {
+  /* 10px / 16px  */
   font-size: 62.5%;
   /* overflow-x: hidden; */
 }
@@ -76,12 +58,8 @@ body {
   font-family: "Joan", serif;
   line-height: 1;
   font-weight: 400;
+  letter-spacing: 0.05rem;
   color: #000;
-}
-
-button {
-  background-color: transparent;
-  border: none;
 }
 
 #root {
@@ -91,16 +69,16 @@ button {
   /* font-family: "Cormorant Garamond", serif; */
 }
 
-@media (max-width: 75em) {
+@media (max-width: 80em) {
   html {
     /* 9px / 16px  */
     font-size: 56.25%;
   }
 }
 
-@media (max-width: 58em) {
+@media (max-width: 70em) {
   html {
-    /* 9px / 16px  */
+    /* 8px / 16px = 0.5 = 50% */
     font-size: 50%;
   }
 }
@@ -110,4 +88,9 @@ h2,
 p,
 h3 {
   margin: 0;
+}
+
+button {
+  background-color: transparent;
+  border: none;
 }

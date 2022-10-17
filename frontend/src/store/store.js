@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./modules/userSlice";
-import itemsReducer from "./modules/itemsSlice";
+import queryReducer from "./modules/querySlice";
 
 export default configureStore({
   reducer: {
     user: userReducer,
-    items: itemsReducer,
+    query: queryReducer,
   },
 });

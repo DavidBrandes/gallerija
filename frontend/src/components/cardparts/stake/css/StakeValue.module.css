@@ -1,0 +1,17 @@
+@value custom-grey from '/src/style/colors.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.4rem;
+}
+
+.title {
+  font-size: 1.4rem;
+  color: custom-grey;
+}
+
+.value {
+  padding: 0 0.8rem;
+}

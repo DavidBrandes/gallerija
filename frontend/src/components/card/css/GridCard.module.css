@@ -1,6 +1,48 @@
-.container {
-  padding-bottom: 8rem;
-  margin: 0 auto;
+@value max-image-width, grid-card-image-height, grid-card-text-height, grid-card-padding-height from '/src/style/size.css';
 
-  max-width: 400px;
+.container {
+  padding: 3.2rem grid-card-padding-height;
+
+  width: 100%;
+  height: 100%;
+
+  /* Limit the image width */
+  max-width: 48rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageContainer {
+  width: 100%;
+  height: grid-card-image-height;
+  max-width: max-image-width;
+}
+
+.textContainer {
+  width: 100%;
+  height: grid-card-text-height;
+
+  padding: 2.4rem 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  gap: 2.4rem;
+}
+
+.biddingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 1.4rem;
 }

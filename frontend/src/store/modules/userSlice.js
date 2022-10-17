@@ -3,28 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    loggedIn: false,
     stakes: { 3: 20, 4: 300, 6: 20 },
-    wishlist: {},
+    wishlist: { 2: true },
   },
   reducers: {
-    logInOut: (state) => {
-      state.loggedIn = !state.loggedIn;
+    updateStake: (state, action) => {
+      if (action.payload.stake === 0) delete state.stakes[action.payload.id];
+      else state.stakes[action.payload.id] = action.payload.stake;
     },
-    placeStake: (state, action) => {
-      return state.loggedIn;
-    },
-    revokeStake: (state, action) => {
-      console.log(action, action.payload);
-    },
-    addRemoveWishlist: (state, action) => {
-      state.wishlist[action.payload.id]
-        ? (state.wishlist[action.payload.id] = false)
-        : (state.wishlist[action.payload.id] = true);
+    updateWishlist: (state, action) => {
+      if (action.payload.onWishlist) state.wishlist[action.payload.id] = true;
+      else delete state.wishlist[action.payload.id];
     },
   },
 });
 
-export const { logInOut, addRemoveWishlist } = userSlice.actions;
+export const { updateStake, updateWishlist } = userSlice.actions;
 
 export default userSlice.reducer;

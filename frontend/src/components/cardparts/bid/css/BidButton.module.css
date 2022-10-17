@@ -1,0 +1,14 @@
+@value hover-color, overlay-color from '/src/style/colors.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1.2rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  color: hover-color;
+}

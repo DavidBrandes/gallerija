@@ -1,0 +1,41 @@
+@value max-image-width from '/src/style/size.css';
+
+.wrapper {
+  padding-bottom: 8rem;
+  margin: 0 auto;
+
+  max-width: max-image-width;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.image:hover {
+  cursor: pointer;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+.placeholder {
+  max-width: max-image-width;
+  height: 600px;
+}
+
+.bidbutton {
+  font-size: 2rem;
+
+  margin-bottom: 3.2rem;
+}

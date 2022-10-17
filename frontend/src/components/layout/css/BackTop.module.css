@@ -1,0 +1,15 @@
+@value hover-color from '/src/style/colors.css';
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  font-size: 1.6rem;
+
+  margin-bottom: 1.6rem;
+}
+
+.container:hover {
+  color: hover-color;
+  cursor: pointer;
+}
