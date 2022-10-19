@@ -28,7 +28,7 @@ const BidButton = React.memo((props) => {
           ></BidCard>
         </Overlay>
       </BidContext.Provider>
-      {props.stake &&
+      {props.stake && //TODO: dont show wehn vesting ended but bidding did not start
       props.stake.vestingStarted &&
       !props.stake.biddingEnded ? (
         <div>

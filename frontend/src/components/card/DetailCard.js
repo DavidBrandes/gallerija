@@ -7,6 +7,9 @@ import Wishlist from "../cardparts/wishlist/Wishlist";
 import Time from "../cardparts/time/Time";
 import BidButton from "../cardparts/bid/BidButton";
 import StakeValues from "../cardparts/stake/StakeValues";
+import StakeText from "../cardparts/stake/StakeText";
+import WinText from "../cardparts/win/WinText";
+import WinChance from "../cardparts/chance/WinChance";
 
 import classes from "./css/DetailCard.module.css";
 
@@ -50,6 +53,7 @@ function DetailCard(props) {
     try {
       const newItem = await itemData.getItem({ id: props.id });
       setItem(newItem.item);
+      console.log("detail card set item", item);
     } catch (error) {
       console.error(error);
     }
@@ -60,10 +64,11 @@ function DetailCard(props) {
   }, []);
 
   useEffect(() => {
-    setStake(null);
+    console.log("detail card init");
+    // setStake({}); //causes additinal rerender on start
     if (state?.item) setItem(state.item);
     else {
-      setItem(null);
+      // setItem(null); //causes additinal rerender on start
       load();
     }
   }, [props.id]);
@@ -85,7 +90,10 @@ function DetailCard(props) {
               <Title item={item}></Title>
               <ItemDescription item={item}></ItemDescription>
               <StakeValues stake={stake} userStake={userStake} />
-              <Time />
+              <Time stake={stake} inView={props.inView} />
+              <StakeText stake={stake} />
+              <WinText item={item} />
+              <WinChance stake={stake} userStake={userStake} />
               <div className={classes.bidButton}>
                 <BidButton item={item} userStake={userStake} stake={stake} />
               </div>

@@ -3,14 +3,33 @@ import stakeData from "./stake";
 class User {
   constructor() {
     this.loadTime = Number(process.env.REACT_APP_API_CALL_TIME);
-    this.stakes = { 3: 20, 4: 300, 6: 20 };
-    this.wishlist = new Set([2]);
+    this.stakes = { 2: 5000, 4: 3000, 6: 70000, 7: 10000 };
+    this.wishlist = { 2: true, 4: true };
+    this.won = { 7: true };
+    this.id = 123;
+    this.interval = setInterval(() => {
+      const newWon = {};
+
+      for (let key of Object.keys(this.stakes)) {
+        if (stakeData.stakes[key].winnerId) {
+          if (stakeData.stakes[key].winnerId === this.id) newWon[key] = true;
+          else newWon[key] = false;
+        }
+      }
+
+      this.won = newWon;
+    }, Number(process.env.REACT_APP_API_UPDATE_INTERVAL));
   }
 
   getUser() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({ stakes: this.stakes, wishlist: this.wishlist });
+        resolve({
+          stakes: this.stakes,
+          wishlist: this.wishlist,
+          id: this.id,
+          won: this.won,
+        });
       }, this.loadTime);
     });
   }
@@ -31,9 +50,27 @@ class User {
           reject("You may not revoke a stake after the bidding has started");
           return;
         }
-        stakeData.updateStake(id, diff);
-        this.stakes[id] = stake;
-        if (this.stakes[id] <= 0) delete this.stakes[id];
+        if (!stakeData.stakes[id].vestingStarted) {
+          reject("You may not place a bid before the bidding started");
+          return;
+        }
+        if (
+          stakeData.stakes[id].vestingEnded &&
+          !stakeData.stakes[id].biddingStarted
+        ) {
+          reject("This painting did not collect sufficent bids");
+          return;
+        }
+        if (stakeData.stakes[id].biddingEnded) {
+          reject("You cannot place a bid after the bidding ended");
+          return;
+        }
+        const newStakes = { ...this.stakes };
+        newStakes[id] = stake;
+        if (newStakes[id] <= 0) delete newStakes[id];
+        this.stakes = newStakes;
+
+        stakeData.updateStake(id, diff, this.stakes[id]);
 
         resolve({ id, stake: this.stakes[id] ?? 0 });
       }, this.loadTime);
@@ -42,8 +79,11 @@ class User {
   updateWishlist({ id, onWishlist }) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (onWishlist) this.wishlist.add(id);
-        else this.wishlist.delete(id);
+        const newWishlist = { ...this.wishlist };
+        if (onWishlist) newWishlist[id] = true;
+        else delete newWishlist[id];
+        this.wishlist = newWishlist;
+
         resolve({ id, onWishlist });
       }, this.loadTime);
     });

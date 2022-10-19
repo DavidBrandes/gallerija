@@ -240,6 +240,7 @@ function Grid(props) {
   }
 
   useEffect(() => {
+    console.log("grid initial call");
     pagesInView.current = [-Infinity, -Infinity];
     blockInViewDict.current = {};
     maxPage.current = -Infinity;

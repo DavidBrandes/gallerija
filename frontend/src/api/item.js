@@ -4,14 +4,8 @@ class Item {
     this.date = new Date();
     this.items = [
       {
-        srcLow: [
-          "/images/Maeda_Primavesi.webp",
-          "/images/Maeda_Primavesi.webp",
-        ],
-        srcHigh: [
-          "/images/Maeda_Primavesi.webp",
-          "/images/Maeda_Primavesi.webp",
-        ],
+        srcLow: ["/images/Maeda_Primavesi.webp"],
+        srcHigh: ["/images/Maeda_Primavesi.webp"],
         title: "Mäda Primavesi",
         subTitle: "Gustav Klimt",
         id: 0,
@@ -34,16 +28,8 @@ class Item {
         },
       },
       {
-        srcLow: [
-          "/images/Standing_girl.webp",
-          "/images/Standing_girl.webp",
-          "/images/Standing_girl.webp",
-        ],
-        srcHigh: [
-          "/images/Standing_girl.webp",
-          "/images/Standing_girl.webp",
-          "/images/Standing_girl.webp",
-        ],
+        srcLow: ["/images/Standing_girl.webp"],
+        srcHigh: ["/images/Standing_girl.webp"],
         title: "Standing Girl, Back View",
         subTitle: "Egon Schiele",
         id: 2,
@@ -66,16 +52,8 @@ class Item {
         },
       },
       {
-        srcLow: [
-          "/images/Nude_female_figure_holding_left_foot.webp",
-          "/images/Nude_female_figure_holding_left_foot.webp",
-          "/images/Nude_female_figure_holding_left_foot.webp",
-        ],
-        srcHigh: [
-          "/images/Nude_female_figure_holding_left_foot.webp",
-          "/images/Nude_female_figure_holding_left_foot.webp",
-          "/images/Nude_female_figure_holding_left_foot.webp",
-        ],
+        srcLow: ["/images/Nude_female_figure_holding_left_foot.webp"],
+        srcHigh: ["/images/Nude_female_figure_holding_left_foot.webp"],
         title: "Nude female figure holding left foot",
         subTitle: "Auguste Rodin",
         id: 4,
@@ -86,14 +64,8 @@ class Item {
         },
       },
       {
-        srcLow: [
-          "/images/Still_life_with_apples.webp",
-          "/images/Still_life_with_apples.webp",
-        ],
-        srcHigh: [
-          "/images/Still_life_with_apples.webp",
-          "/images/Still_life_with_apples.webp",
-        ],
+        srcLow: ["/images/Still_life_with_apples.webp"],
+        srcHigh: ["/images/Still_life_with_apples.webp"],
         title: "Still Life with Apples and a Pot of Primroses",
         subTitle: "Paul Cézanne",
         id: 5,
@@ -116,16 +88,8 @@ class Item {
         },
       },
       {
-        srcLow: [
-          "/images/View_of_heidelberg.webp",
-          "/images/View_of_heidelberg.webp",
-          "/images/View_of_heidelberg.webp",
-        ],
-        srcHigh: [
-          "/images/View_of_heidelberg.webp",
-          "/images/View_of_heidelberg.webp",
-          "/images/View_of_heidelberg.webp",
-        ],
+        srcLow: ["/images/View_of_heidelberg.webp"],
+        srcHigh: ["/images/View_of_heidelberg.webp"],
         title: "View of Heidelberg",
         subTitle: "Jan Brueghel the Elder",
         id: 7,
@@ -133,6 +97,18 @@ class Item {
           Type: "Oil on Paper",
           Measures: "11.8 W x 9.8 H x 0.7 D in",
           Country: "Netherlands",
+        },
+      },
+      {
+        srcLow: ["/images/The_Repast_of_the_Lion.webp"],
+        srcHigh: ["/images/The_Repast_of_the_Lion.webp"],
+        title: "The Repast of the Lion",
+        subTitle: "Henri Rousseau",
+        id: 8,
+        description: {
+          Type: "Oil on Canvas",
+          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Country: "France",
         },
       },
     ];

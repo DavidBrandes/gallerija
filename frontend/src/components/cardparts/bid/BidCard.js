@@ -15,16 +15,17 @@ import userData from "../../../api/user";
 
 import CurrencyInput from "react-currency-input-field";
 
-import { convertNumber } from "../../../utility/number";
+import { convertCurrency, convertFromString } from "../../../utility/number";
 
 import { useDispatch } from "react-redux";
 import { updateStake } from "../../../store/modules/userSlice";
+import { setOpen } from "../../../store/modules/overlaySlice";
 
 // import { TfiClose } from "react-icons/tfi";
 
 const BidCard = React.memo((props) => {
   // const [message, setMessage] = useState("");
-  const closeTimeout = Number(process.env.REACT_APP_SUCCESsFULL_BID_CARD_CLOSE);
+  const closeTimeout = Number(process.env.REACT_APP_BID_CARD_CLOSE_TIME);
   const { message, setMessage, inAction, setInAction, value, setValue } =
     useContext(BidContext);
   const inputRef = useRef();
@@ -57,11 +58,13 @@ const BidCard = React.memo((props) => {
   }
 
   useEffect(() => {
+    dispatch(setOpen({ open: true }));
     inputRef.current.focus();
     return () => {
       if (!inAction) {
         setMessage("");
       }
+      dispatch(setOpen({ open: false }));
     };
   }, []);
 
@@ -87,7 +90,7 @@ const BidCard = React.memo((props) => {
           />
         </div>
         <div className={classes.stakesText}>
-          <Time />
+          <Time stake={props.stake} />
           <StakeText stake={props.stake} />
         </div>
       </div>
@@ -104,14 +107,20 @@ const BidCard = React.memo((props) => {
                 ref={inputRef}
                 className={classes.inputForm}
                 placeholder="Enter new Stake"
-                defaultValue={value}
+                defaultValue={convertCurrency(value)}
                 onValueChange={(value) => {
-                  setValue(Number(value));
+                  setValue(convertFromString(value));
                 }}
-                suffix={" €"}
-                disableAbbreviations={true}
+                // suffix={" €"}
+                // disableAbbreviations={true}
+                intlConfig={{
+                  locale: process.env.REACT_APP_CURRENCY_LOCALES,
+                  currency: "EUR",
+                }}
                 maxLength={7}
-                allowDecimals={false}
+                allowDecimals={
+                  process.env.REACT_APP_STAKE_ALLOW_DECIMALS === "true"
+                }
                 onKeyPress={(event) => {
                   if (event.key === "Enter") {
                     if (inAction || !Number.isFinite(value)) return;
@@ -121,7 +130,9 @@ const BidCard = React.memo((props) => {
               />
               <span
                 className={classes.inputFormText}
-              >{`Your current Stake: ${convertNumber(props.userStake)}`}</span>
+              >{`Your current Stake: ${convertCurrency(
+                props.userStake
+              )}`}</span>
             </div>
             <button
               className={`${

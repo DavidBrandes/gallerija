@@ -43,7 +43,7 @@ function GridCard(props) {
           <StakeValues stake={stake} userStake={userStake} />
         </div>
         <div className={classes.biddingContainer}>
-          <Time />
+          <Time stake={stake} inView={props.inView} />
           <BidButton item={props.item} stake={stake} userStake={userStake} />
         </div>
         <div className={classes.wishlistContainer}>

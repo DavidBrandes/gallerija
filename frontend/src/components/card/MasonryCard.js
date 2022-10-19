@@ -6,6 +6,9 @@ import ViewButton from "../cardparts/view/ViewButton";
 import Wishlist from "../cardparts/wishlist/Wishlist";
 import Image from "../cardparts/image/Image";
 import StakeValues from "../cardparts/stake/StakeValues";
+import StakeText from "../cardparts/stake/StakeText";
+import WinText from "../cardparts/win/WinText";
+import WinChance from "../cardparts/chance/WinChance";
 
 import BidButton from "../cardparts/bid/BidButton";
 
@@ -45,7 +48,10 @@ const MasonryCard = React.memo((props) => {
           <div className={classes.text}>
             <Title item={props.item} />
             <StakeValues stake={stake} userStake={userStake} />
-            <Time />
+            <Time stake={stake} inView={props.inView} />
+            <StakeText stake={stake} />
+            <WinText item={props.item} />
+            <WinChance stake={stake} userStake={userStake} />
             <div className={classes.bidbutton}>
               <BidButton
                 stake={stake}

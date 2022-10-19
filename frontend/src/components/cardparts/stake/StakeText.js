@@ -1,17 +1,36 @@
 import classes from "./css/StakeText.module.css";
 
-import { convertNumber } from "../../../utility/number";
+import { convertCurrency } from "../../../utility/number";
 
 function StakeText(props) {
   const diff = props.stake.requiredStake - props.stake.combinedStakes;
-  const text =
-    diff <= 0 || props.stake.biddingStarted
-      ? ""
-      : convertNumber(diff) + " to start off the bidding";
 
+  let text = "";
+  if (props.stake.vestingEnded) {
+    if (!props.stake.biddingStarted)
+      text = "The required stake was not reached";
+    else {
+      if (props.stake.biddingEnded) {
+        text = `Painting collected ${convertCurrency(
+          props.stake.combinedStakes
+        )} € in Stakes`;
+      } else {
+        text = `Current combined Stakes ${convertCurrency(
+          props.stake.combinedStakes
+        )} €`;
+      }
+    }
+  } else {
+    if (props.stake.vestingStarted) {
+      if (diff > 0)
+        text = convertCurrency(diff) + " € required to start off the bidding";
+      else text = "The reuqired stake was reached";
+    } else {
+      text = "Bidding starts soon";
+    }
+  }
   return (
     <div>
-      {" "}
       {props.stake ? <div className={classes.container}>{text}</div> : null}
     </div>
   );

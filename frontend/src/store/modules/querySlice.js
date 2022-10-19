@@ -4,9 +4,6 @@ export const querySlice = createSlice({
   name: "items",
   initialState: {
     main: { items: [], hasMore: true, lastVisibleIndex: -Infinity },
-    //page: {items, hasMore, lastVisibleIndex}
-    //current: {query, items, hasMore, lastVisibleIndex}
-    //old: [queries...]
   },
   reducers: {
     updateQuery: (state, action) => {

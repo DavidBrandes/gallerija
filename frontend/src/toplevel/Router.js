@@ -1,6 +1,6 @@
-import MainPage from "./pages/MainPage";
-import DetailPage from "./pages/DetailPage";
-import Test from "./test/Test";
+import MainPage from "../pages/MainPage";
+import DetailPage from "../pages/DetailPage";
+import Test from "../test/Test";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -20,6 +20,7 @@ const router = createBrowserRouter([
 ]);
 
 function Router() {
+  console.log("router render");
   return <RouterProvider router={router} />;
 }
 
