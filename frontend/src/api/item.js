@@ -126,26 +126,27 @@ class Item {
     });
   }
 
-  getItems({ index, nItems, maxItems }) {
-    const stopIndex = Math.min(index + nItems, maxItems);
-    const hasMore = this.items.length > stopIndex;
-
+  getItems({ startIndex, stopIndex, getNumberItems }) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({ items: this.items.slice(index, stopIndex), hasMore });
+        resolve({
+          items: this.items.slice(startIndex, stopIndex),
+          numberItems: getNumberItems ? this.items.length : undefined,
+        });
       }, this.loadTime);
     });
   }
 
-  getRelatedItems({ id, maxItems, index, nItems }) {
+  getRelatedItems({ id, startIndex, stopIndex, getNumberItems }) {
+    console.log("related items call", startIndex, stopIndex, getNumberItems);
     const items = this.items.filter((item) => item.id !== id);
-
-    const stopIndex = Math.min(index + nItems, maxItems);
-    const hasMore = Math.min(maxItems, items.length) > stopIndex;
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve({ items: items.slice(index, stopIndex), hasMore });
+        resolve({
+          items: items.slice(startIndex, stopIndex),
+          numberItems: getNumberItems ? items.length : undefined,
+        });
       }, this.loadTime);
     });
   }

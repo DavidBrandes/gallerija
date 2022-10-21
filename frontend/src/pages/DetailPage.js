@@ -1,7 +1,7 @@
 import Navbar from "../components/layout/Navbar";
-import DetailCard from "../components/card/DetailCard";
+import DetailCard from "../components/structure/detail/DetailCard";
 import Footer from "../components/layout/Footer";
-import Related from "../components/structure/Related";
+import Related from "../components/structure/related/Related";
 import ScrollToTop from "../components/utils/ScrollToTop";
 import BackTop from "../components/layout/BackTop";
 
@@ -20,7 +20,7 @@ function DetailPage(props) {
       <WinLooseCard />
       <ScrollToTop />
       <Navbar showBackLink={true} />
-      <DetailCard id={id} />
+      <DetailCard id={id} key={id} />
       <Related id={id} />
       <BackTop />
       <Footer />

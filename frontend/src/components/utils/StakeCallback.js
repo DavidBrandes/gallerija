@@ -3,6 +3,7 @@ import stakeData from "../../api/stake";
 
 import { objectEqual } from "../../utility/object";
 
+//TODO: do i need memo here?
 const StakeCallback = React.memo((props) => {
   //TODO: why does this trigger a double rerender for the parent
   //on the first two interval calls; even though the data passed to
@@ -10,6 +11,10 @@ const StakeCallback = React.memo((props) => {
   //towards websockets anyways, so here for every call there should
   //be a change in the data handed to setSTake. Since we only receive a
   //call on a update, the obect spread ... is good for us
+
+  const stakeUpdateInterval = Number(
+    process.env.REACT_APP_STAKE_UPDATE_INTERVAL
+  );
 
   async function load() {
     try {
@@ -31,16 +36,17 @@ const StakeCallback = React.memo((props) => {
     if (props.inView) {
       load();
       let interval;
-      if (process.env.REACT_APP_UPDATE_STAKE === "true")
+      if (Number.isFinite(stakeUpdateInterval))
         interval = setInterval(() => {
           load();
-        }, Number(process.env.REACT_APP_STAKE_UPDATE_INTERVAL));
+        }, stakeUpdateInterval);
 
       return () => {
         clearInterval(interval);
       };
     }
-  }, [props.id, props.inView]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.inView]);
 
   return null;
 });

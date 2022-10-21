@@ -21,4 +21,5 @@ function ArtistCard(props) {
   );
 }
 
+//TODO: memo necesary?
 export default React.memo(ArtistCard);

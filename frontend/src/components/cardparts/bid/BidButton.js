@@ -7,13 +7,12 @@ import BidCard from "./BidCard";
 
 import BidContext from "./BidContext";
 
+//TODO: meome necessary?
 const BidButton = React.memo((props) => {
   const ref = useRef(null);
   const [message, setMessage] = useState("");
   const [inAction, setInAction] = useState(false);
   const [value, setValue] = useState(props.userStake);
-
-  console.log("bid button render");
 
   return (
     <div>

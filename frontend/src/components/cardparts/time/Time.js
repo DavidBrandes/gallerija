@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 function Time(props) {
   const currentTime = useSelector((state) => state.time.time);
 
-  console.log("time render");
-
   //TODO: conditionally show on view
   //Dont show text when stake is an empty object
 

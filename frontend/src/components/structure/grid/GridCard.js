@@ -1,15 +1,15 @@
 import classes from "./css/GridCard.module.css";
 
-import Image from "../cardparts/image/Image";
-import Title from "../cardparts/title/Title";
-import Wishlist from "../cardparts/wishlist/Wishlist";
-import StakeValues from "../cardparts/stake/StakeValues";
+import Image from "../../cardparts/image/Image";
+import Title from "../../cardparts/title/Title";
+import Wishlist from "../../cardparts/wishlist/Wishlist";
+import StakeValues from "../../cardparts/stake/StakeValues";
+import BidButton from "../../cardparts/bid/BidButton";
+import Time from "../../cardparts/time/Time";
+
 import { useSelector } from "react-redux";
 
-import BidButton from "../cardparts/bid/BidButton";
-import Time from "../cardparts/time/Time";
-
-import StakeCallback from "../utils/StakeCallback";
+import StakeCallback from "../../utils/StakeCallback";
 
 import { useState, useCallback } from "react";
 
@@ -33,7 +33,6 @@ function GridCard(props) {
         setStake={setStakeCallback}
         inView={props.inView}
       ></StakeCallback>
-      ;
       <div className={classes.imageContainer}>
         <Image to={`/detail/${props.item.id}`} item={props.item} />
       </div>

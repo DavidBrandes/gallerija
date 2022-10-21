@@ -1,5 +1,3 @@
-import classes from "./css/WinChance.module.css";
-
 import React from "react";
 
 import { convertNumber } from "../../../utility/number";

@@ -1,16 +1,16 @@
 import classes from "./css/Masonry.module.css";
 import MasonryCSS from "react-masonry-css";
-import MasonryCard from "../card/MasonryCard";
-import itemData from "../../api/item";
+import MasonryCard from "./MasonryCard";
+import itemData from "../../../api/item";
 import { InView } from "react-intersection-observer";
 
-import { setSearch } from "../../utility/location";
+import { setSearch } from "../../../utility/location";
 
-import store from "../../store/store";
+import store from "../../../store/store";
 
 import { useDispatch } from "react-redux";
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { updateQuery } from "../../store/modules/querySlice";
+import { updateMain } from "../../../store/modules/querySlice";
 
 function MasonryCardWrapper(props) {
   const newLoadMargin = Number(process.env.REACT_APP_MASONRY_IN_VIEW_MARGIN);
@@ -32,6 +32,7 @@ function MasonryCardWrapper(props) {
       console.log("scroll", props.index);
       scrollRef.current.scrollIntoView({ behavior: "instant" });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -82,11 +83,10 @@ function MasonryWrapper() {
     </div>
   );
 }
-
+//TODO: memo necessary here?
 const Masonry = React.memo(function Masonry(props) {
   const itemsPerQuery = Number(process.env.REACT_APP_MASONRY_ITEMS_PER_QUERY);
-  const maxItems = Number(process.env.REACT_APP_MASONRY_MAX_ITEMS);
-  const loadOffset = Number(process.env.REACT_APP_MASONRY_NEW_LOAD_OFFSET);
+  const loadOffset = Number(process.env.REACT_APP_MASONRY_NEW_LOAD_OFFSET) + 1;
 
   const dispatch = useDispatch();
   const [gridList, setGridList] = useState([]);
@@ -118,17 +118,30 @@ const Masonry = React.memo(function Masonry(props) {
     setGridList((currentGridList) => currentGridList.concat(newGridItems));
   }
 
-  async function load() {
+  async function load(getNumberItems) {
     const index = store.getState().query.main.items.length;
 
     try {
-      const { items, hasMore } = await itemData.getItems({
-        index: index,
-        nItems: itemsPerQuery,
-        maxItems,
+      const { items, numberItems } = await itemData.getItems({
+        startIndex: index,
+        stopIndex: Math.min(
+          index + itemsPerQuery,
+          store.getState().query.main.numberItems
+        ),
+        getNumberItems,
       });
 
-      dispatch(updateQuery({ hasMore, items }));
+      if (getNumberItems)
+        dispatch(
+          updateMain({
+            numberItems: Math.min(
+              numberItems,
+              Number(process.env.REACT_APP_MASONRY_MAX_ITEMS)
+            ),
+            items,
+          })
+        );
+      else dispatch(updateMain({ items }));
       add(items, index);
     } catch (error) {
       console.error(error);
@@ -141,14 +154,13 @@ const Masonry = React.memo(function Masonry(props) {
     inView ? inViewSet.current.add(index) : inViewSet.current.delete(index);
 
     if (inView && index > store.getState().query.main.lastVisibleIndex) {
-      dispatch(updateQuery({ lastVisibleIndex: index }));
+      dispatch(updateMain({ lastVisibleIndex: index }));
 
       const nItems = store.getState().query.main.items.length;
 
       if (
         index + loadOffset >= nItems &&
-        store.getState().query.main.hasMore &&
-        nItems < maxItems
+        nItems < store.getState().query.main.numberItems
       ) {
         load();
       }
@@ -164,6 +176,7 @@ const Masonry = React.memo(function Masonry(props) {
     else {
       add(store.getState().query.main.items, 0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,25 +1,24 @@
 import React, { useCallback, useEffect } from "react";
 
-import Carousel from "../cardparts/carousel/Carousel";
-import Title from "../cardparts/title/Title";
-import ItemDescription from "../cardparts/description/ItemDescription";
-import Wishlist from "../cardparts/wishlist/Wishlist";
-import Time from "../cardparts/time/Time";
-import BidButton from "../cardparts/bid/BidButton";
-import StakeValues from "../cardparts/stake/StakeValues";
-import StakeText from "../cardparts/stake/StakeText";
-import WinText from "../cardparts/win/WinText";
-import WinChance from "../cardparts/chance/WinChance";
+import Carousel from "../../cardparts/carousel/Carousel";
+import Title from "../../cardparts/title/Title";
+import ItemDescription from "../../cardparts/description/ItemDescription";
+import Wishlist from "../../cardparts/wishlist/Wishlist";
+import Time from "../../cardparts/time/Time";
+import BidButton from "../../cardparts/bid/BidButton";
+import StakeValues from "../../cardparts/stake/StakeValues";
+import StakeText from "../../cardparts/stake/StakeText";
+import WinText from "../../cardparts/win/WinText";
+import WinChance from "../../cardparts/chance/WinChance";
 
 import classes from "./css/DetailCard.module.css";
 
 import { useState } from "react";
-
 import { useSelector } from "react-redux";
 
-import itemData from "../../api/item";
+import itemData from "../../../api/item";
 
-import StakeCallback from "../utils/StakeCallback";
+import StakeCallback from "../../utils/StakeCallback";
 import { InView } from "react-intersection-observer";
 import { useLocation } from "react-router";
 
@@ -71,7 +70,8 @@ function DetailCard(props) {
       // setItem(null); //causes additinal rerender on start
       load();
     }
-  }, [props.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

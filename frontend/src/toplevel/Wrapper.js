@@ -13,6 +13,10 @@ import { checkNewWin } from "../utility/win";
 
 function Wrapper(props) {
   const dispatch = useDispatch();
+  const timerUpdateInterval = Number(
+    process.env.REACT_APP_TIME_UPDATE_INTERVAL
+  );
+  const userUpdateInterval = Number(process.env.REACT_APP_USER_UPDATE_INTERVAL);
 
   console.log("wrapper render");
 
@@ -37,25 +41,26 @@ function Wrapper(props) {
   useEffect(() => {
     // time startup
     let timeInterval;
-    if (process.env.REACT_APP_UPDATE_TIME === "true")
+    if (Number.isFinite(timerUpdateInterval))
       timeInterval = setInterval(() => {
         console.log("timer reset");
 
         dispatch(setTime({ time: new Date().getTime() }));
-      }, Number(process.env.REACT_APP_TIME_UPDATE_INTERVAL));
+      }, timerUpdateInterval);
 
     // initial user call
     load(true);
     let userInterval;
-    if (process.env.REACT_APP_UPDATE_USER === "true")
+    if (Number.isFinite(userUpdateInterval))
       userInterval = setInterval(() => {
         load(false);
-      }, Number(process.env.REACT_APP_USER_UPDATE_INTERVAL));
+      }, userUpdateInterval);
 
     return () => {
       clearInterval(timeInterval);
       clearInterval(userInterval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>{props.children}</div>;

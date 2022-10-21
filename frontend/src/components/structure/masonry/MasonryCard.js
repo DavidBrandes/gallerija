@@ -1,24 +1,24 @@
 import classes from "./css/MasonryCard.module.css";
 
-import Title from "../cardparts/title/Title";
-import Time from "../cardparts/time/Time";
-import ViewButton from "../cardparts/view/ViewButton";
-import Wishlist from "../cardparts/wishlist/Wishlist";
-import Image from "../cardparts/image/Image";
-import StakeValues from "../cardparts/stake/StakeValues";
-import StakeText from "../cardparts/stake/StakeText";
-import WinText from "../cardparts/win/WinText";
-import WinChance from "../cardparts/chance/WinChance";
+import Title from "../../cardparts/title/Title";
+import Time from "../../cardparts/time/Time";
+import ViewButton from "../../cardparts/view/ViewButton";
+import Wishlist from "../../cardparts/wishlist/Wishlist";
+import Image from "../../cardparts/image/Image";
+import StakeValues from "../../cardparts/stake/StakeValues";
+import StakeText from "../../cardparts/stake/StakeText";
+import WinText from "../../cardparts/win/WinText";
+import WinChance from "../../cardparts/chance/WinChance";
+import BidButton from "../../cardparts/bid/BidButton";
 
-import BidButton from "../cardparts/bid/BidButton";
+import StakeCallback from "../../utils/StakeCallback";
 
-import StakeCallback from "../utils/StakeCallback";
-
-import { setSearch } from "../../utility/location";
+import { setSearch } from "../../../utility/location";
 
 import { useSelector } from "react-redux";
 import React, { useState, useCallback } from "react";
 
+//TODO: memo necesary?
 const MasonryCard = React.memo((props) => {
   const userStake = useSelector(
     (state) => state.user.stakes[props.item.id] ?? 0
@@ -30,6 +30,8 @@ const MasonryCard = React.memo((props) => {
   }, []);
 
   console.log("Masonry card render", props.item.id);
+
+  //TODO: make sure updates are withheld when not in view
 
   return (
     <div className={classes.wrapper}>

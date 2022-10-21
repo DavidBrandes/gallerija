@@ -38,6 +38,7 @@ function WinLooseCardWrapper(props) {
       !ref.current.showOverlay
     )
       openWinLooseCard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [win]);
 
   return (

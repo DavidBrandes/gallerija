@@ -10,7 +10,7 @@ function convertNumber(number) {
 
 function convertFromString(string) {
   if (process.env.REACT_APP_CURRENCY_LOCALES !== "de-DE")
-    throw "Currency not supported";
+    throw new Error("Currency not supported");
   return parseFloat(string.replace(".", "").replace(",", ".")) * 100;
 }
 

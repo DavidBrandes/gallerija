@@ -5,7 +5,7 @@ import Navbar from "../components/layout/Navbar";
 
 import WinLooseCard from "../components/popup/WinLooseCard";
 
-import Masonry from "../components/structure/Masonry";
+import Masonry from "../components/structure/masonry/Masonry";
 
 function MainPage() {
   return (

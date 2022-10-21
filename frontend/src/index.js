@@ -19,9 +19,6 @@ root.render(
 
 // TODO: general functionalities
 
-// remove has more
-// store related query in store
-// check that grid will be completely reloaded on id change (rn it stays on screen till reset)
 // Bring back Artist + Info Card
 
 // check that potential undefined stake, item and user values are handled correctly
@@ -31,7 +28,6 @@ root.render(
 
 // TODO: bringing it all together
 
-// Not found page + add redirects on error + api error messages
 // add image description
 
 // make menu
@@ -48,7 +44,8 @@ root.render(
 // newsletter popup
 // add login logout functionality
 // make overiview page + search + pagination + store in querySlice
+// add in not found page, error redirects, and no items found messages
+// upgrade redux to saga
 
 // Ideas
-// maybe don't send the winner id with the stake data api but instead have
-// a secure websocket that updates the user info from the store
+// have a webscoket instead of the recurring user api call

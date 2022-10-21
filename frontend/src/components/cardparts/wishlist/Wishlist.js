@@ -17,6 +17,7 @@ function Wishlist(props) {
       })
     );
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await userData.updateWishlist({
         id: props.item.id,
         onWishlist: !onWishlist,

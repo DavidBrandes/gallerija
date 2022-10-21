@@ -1,5 +1,4 @@
 import classes from "./css/Footer.module.css";
-import Email from "../utils/Email";
 
 function Footer(props) {
   return (

@@ -23,6 +23,7 @@ import { setOpen } from "../../../store/modules/overlaySlice";
 
 // import { TfiClose } from "react-icons/tfi";
 
+//TODO: memo necessary?
 const BidCard = React.memo((props) => {
   // const [message, setMessage] = useState("");
   const closeTimeout = Number(process.env.REACT_APP_BID_CARD_CLOSE_TIME);
@@ -66,6 +67,7 @@ const BidCard = React.memo((props) => {
       }
       dispatch(setOpen({ open: false }));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
