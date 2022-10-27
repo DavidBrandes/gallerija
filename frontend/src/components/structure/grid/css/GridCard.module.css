@@ -1,13 +1,13 @@
-@value max-image-width, grid-card-image-height, grid-card-text-height, grid-card-padding-height from '/src/style/size.css';
-
+@value max-image-width, grid-card-image-height, grid-card-text-height from '/src/style/size.css';
+@value grid-card-padding-width, grid-card-padding-height from '/src/style/size.css';
 .container {
-  padding: 3.2rem grid-card-padding-height;
+  padding: grid-card-padding-height grid-card-padding-width;
 
   width: 100%;
   height: 100%;
 
   /* Limit the image width */
-  max-width: 48rem;
+  max-width: calc(max-image-width + 2 * grid-card-padding-width);
 
   display: flex;
   flex-direction: column;
@@ -17,7 +17,6 @@
 .imageContainer {
   width: 100%;
   height: grid-card-image-height;
-  max-width: max-image-width;
 }
 
 .textContainer {

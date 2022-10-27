@@ -14,7 +14,7 @@
   align-items: center;
 
   background-color: white;
-  cursor: pointer;
+  cursor: default;
 }
 
 .name {

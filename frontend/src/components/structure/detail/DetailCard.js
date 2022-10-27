@@ -26,6 +26,8 @@ function DetailCardWrapper(props) {
   const inViewMargin = Number(process.env.REACT_APP_MASONRY_IN_VIEW_MARGIN);
   const [componentInView, setComponentInView] = useState(false);
 
+  console.log("detail card wrapper render");
+
   return (
     <div>
       <InView
@@ -42,8 +44,12 @@ function DetailCardWrapper(props) {
 
 function DetailCard(props) {
   const [item, setItem] = useState(null);
-  const userStake = useSelector((state) => state.user.stakes[props.id] ?? 0);
-  const [stake, setStake] = useState({});
+  const userStake = useSelector((state) => {
+    if (state.user.stakes[props.id] !== undefined)
+      return state.user.stakes[props.id];
+    else return 0;
+  });
+  const [stake, setStake] = useState();
   const { state } = useLocation();
 
   console.log("detail card render", props.id, "in view", props.inView);
@@ -52,7 +58,7 @@ function DetailCard(props) {
     try {
       const newItem = await itemData.getItem({ id: props.id });
       setItem(newItem.item);
-      console.log("detail card set item", item);
+      console.log("detail card set item", props.id);
     } catch (error) {
       console.error(error);
     }
@@ -64,17 +70,15 @@ function DetailCard(props) {
 
   useEffect(() => {
     console.log("detail card init");
-    // setStake({}); //causes additinal rerender on start
     if (state?.item) setItem(state.item);
     else {
-      // setItem(null); //causes additinal rerender on start
       load();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
+    <React.Fragment>
       <StakeCallback
         id={props.id}
         setStake={setStakeCallback}
@@ -83,28 +87,32 @@ function DetailCard(props) {
       {item ? (
         <div className={classes.container}>
           <div className={classes.leftPart}>
-            <Carousel item={item}></Carousel>
+            <Carousel
+              srcLow={item.srcLow}
+              srcHigh={item.srcHigh}
+              title={item.title}
+            ></Carousel>
           </div>
           <div className={classes.rightPart}>
             <div className={classes.text}>
-              <Title item={item}></Title>
-              <ItemDescription item={item}></ItemDescription>
+              <Title title={item.title} subTitle={item.subTitle}></Title>
+              <ItemDescription description={item.description}></ItemDescription>
               <StakeValues stake={stake} userStake={userStake} />
               <Time stake={stake} inView={props.inView} />
               <StakeText stake={stake} />
-              <WinText item={item} />
+              <WinText id={item.id} />
               <WinChance stake={stake} userStake={userStake} />
               <div className={classes.bidButton}>
                 <BidButton item={item} userStake={userStake} stake={stake} />
               </div>
-              <Wishlist item={item} />
+              <Wishlist id={item.id} />
             </div>
           </div>
         </div>
       ) : (
         <div className={classes.placeholder}></div>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

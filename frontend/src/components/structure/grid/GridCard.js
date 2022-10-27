@@ -14,17 +14,22 @@ import StakeCallback from "../../utils/StakeCallback";
 import { useState, useCallback } from "react";
 
 function GridCard(props) {
-  const [stake, setStake] = useState({});
+  //TODO: in theory we do not need the inView prop here as the card is
+  //replaced by a placholder when not in view. To align with the other cards we
+  //use it like in those cases
+  const [stake, setStake] = useState();
 
-  const userStake = useSelector(
-    (state) => state.user.stakes[props.item.id] ?? 0
-  );
+  const userStake = useSelector((state) => {
+    if (state.user.stakes[props.id] !== undefined && props.inView)
+      return state.user.stakes[props.id];
+    else return 0;
+  });
 
   const setStakeCallback = useCallback((newStake) => {
     setStake(newStake);
   }, []);
 
-  console.log("grid card render", props.index, "in view", props.inView);
+  console.log("Rendered grid card", props.index, "in view", props.inView);
 
   return (
     <div className={classes.container}>
@@ -38,7 +43,7 @@ function GridCard(props) {
       </div>
       <div className={classes.textContainer}>
         <div className={classes.infoContainer}>
-          <Title item={props.item} />
+          <Title title={props.item.title} subTitle={props.item.subTitle} />
           <StakeValues stake={stake} userStake={userStake} />
         </div>
         <div className={classes.biddingContainer}>
@@ -46,7 +51,7 @@ function GridCard(props) {
           <BidButton item={props.item} stake={stake} userStake={userStake} />
         </div>
         <div className={classes.wishlistContainer}>
-          <Wishlist item={props.item} />
+          <Wishlist id={props.item.id} />
         </div>
       </div>
     </div>

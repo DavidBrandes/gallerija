@@ -1,6 +1,7 @@
 .container {
   width: 100%;
-  background-color: red;
+  background-color: white;
+  border-top: 2px solid black;
   height: 200px;
 
   display: flex;

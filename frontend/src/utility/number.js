@@ -11,7 +11,9 @@ function convertNumber(number) {
 function convertFromString(string) {
   if (process.env.REACT_APP_CURRENCY_LOCALES !== "de-DE")
     throw new Error("Currency not supported");
-  return parseFloat(string.replace(".", "").replace(",", ".")) * 100;
+  if (string)
+    return parseFloat(string.replace(".", "").replace(",", ".")) * 100;
+  else return 0;
 }
 
 export { convertCurrency, convertNumber, convertFromString };

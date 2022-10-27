@@ -11,15 +11,18 @@ import React, {
 } from "react";
 import { InView } from "react-intersection-observer";
 
-//TODO: memo necessary
-const Placeholder = React.memo((props) => {
+function Placeholder(props) {
   const itemsPerBlock = Number(process.env.REACT_APP_GRID_ITEMS_PER_BLOCK);
 
   //to make it fully precise we would need to round the columns in css
   //what is not possible, so ceil(items / rows). Instead we always assume
   // the last block is completely full
 
-  const items = Math.max(0, props.blockHeight) * itemsPerBlock;
+  const items =
+    Math.max(0, Number.isFinite(props.blockHeight) ? props.blockHeight : 0) *
+    itemsPerBlock;
+
+  console.log("placeholder render", items);
 
   return (
     <div
@@ -27,7 +30,7 @@ const Placeholder = React.memo((props) => {
       style={{ "--items": `${items}` }}
     ></div>
   );
-});
+}
 
 function GridCardWrapper(props) {
   const inViewMargin = Number(process.env.REACT_APP_GRID_IN_VIEW_MARGIN);
@@ -35,7 +38,7 @@ function GridCardWrapper(props) {
   const scrollRef = useRef(null);
 
   console.log(
-    "rendered grid card",
+    "rendered grid card wrapper",
     props.index,
     "currently in view",
     componentInView
@@ -60,6 +63,7 @@ function GridCardWrapper(props) {
       <div ref={props.scrollTo ? scrollRef : null} className={classes.card}>
         {componentInView ? (
           <GridCard
+            id={props.item.id}
             item={props.item}
             index={props.index}
             inView={componentInView}
@@ -136,6 +140,12 @@ function GridBlock(props) {
 
   useEffect(() => {
     const items = getBlock({ blockIndex: props.blockIndex });
+    console.log(
+      "initial grid block call",
+      props.blockIndex,
+      "load",
+      items === undefined
+    );
     if (items) add(items, false);
     else load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,7 +176,7 @@ function Grid(props) {
 
   let lastVisibleBlockIndex = getLastVisibleBlockIndex();
 
-  console.log("rendered grid", gridBlocks.length);
+  console.log("rendered main grid", gridBlocks.length, blocksInView.current);
 
   function callback(blockIndex, itemIndex, inView) {
     if (inView) {
@@ -279,6 +289,8 @@ const GridContext = createContext({
 });
 
 function GridWrapper(props) {
+  console.log("grid wrapper render");
+
   return (
     <GridContext.Provider
       value={{

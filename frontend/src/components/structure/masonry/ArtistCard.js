@@ -1,25 +1,18 @@
-import GridCard from "./GridCard";
 import classes from "./css/ArtistCard.module.css";
 
 import React from "react";
 
 function ArtistCard(props) {
   return (
-    <GridCard>
+    <div className={classes.container}>
       <p className={classes.text}>
         <span className={classes.header}>Artists</span>
-        <span>Egon Schiele</span>
-        <span>Auguste Rodin</span>
-        <span>Paul Cézanne</span>
-        <span>Jan Brueghel the Elder </span>
-        <span>William A. Harper</span>
-        <span>Velázquez</span>
-        <span>Henri-Edmond Delacroix</span>
-        <span>Gustav Klimt</span>
+        {props.artists.map((artist) => (
+          <span>{artist}</span>
+        ))}
       </p>
-    </GridCard>
+    </div>
   );
 }
 
-//TODO: memo necesary?
-export default React.memo(ArtistCard);
+export default ArtistCard;

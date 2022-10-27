@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 
 import classes from "./css/WinText.module.css";
 
-function WinText(props) {
-  const won = useSelector((state) => state.user.won[props.item.id]);
+const WinText = React.memo((props) => {
+  const won = useSelector((state) => state.user.won[props.id]);
 
   return (
     <React.Fragment>
@@ -15,6 +15,6 @@ function WinText(props) {
       )}
     </React.Fragment>
   );
-}
+});
 
 export default WinText;

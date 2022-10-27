@@ -3,7 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const querySlice = createSlice({
   name: "items",
   initialState: {
-    main: { items: [], numberItems: Infinity, lastVisibleIndex: -Infinity },
+    main: {
+      items: [],
+      numberItems: Infinity,
+      lastVisibleIndex: -Infinity,
+      artists: [],
+    },
     related: {
       id: undefined,
       blocks: {},
@@ -22,6 +27,9 @@ export const querySlice = createSlice({
 
       if (action.payload.lastVisibleIndex !== undefined)
         state.main.lastVisibleIndex = action.payload.lastVisibleIndex;
+
+      if (action.payload.artists !== undefined)
+        state.main.artists = action.payload.artists;
     },
     relatedSetMaxBlockIndex: (state, action) => {
       state.related.maxBlockIndex = action.payload.maxBlockIndex;

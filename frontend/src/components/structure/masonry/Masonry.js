@@ -1,6 +1,8 @@
 import classes from "./css/Masonry.module.css";
 import MasonryCSS from "react-masonry-css";
 import MasonryCard from "./MasonryCard";
+import InfoCard from "./InfoCard";
+import ArtistCard from "./ArtistCard";
 import itemData from "../../../api/item";
 import { InView } from "react-intersection-observer";
 
@@ -46,14 +48,26 @@ function MasonryCardWrapper(props) {
       }}
       rootMargin={`${newLoadMargin}px 0px ${newLoadMargin}px 0px`}
     >
-      <div ref={props.scrollTo ? scrollRef : null}>
-        <MasonryCard
-          item={props.item}
-          index={props.index}
-          inView={componentInView}
-          show={wasInView.current || componentInView}
-        ></MasonryCard>
-      </div>
+      {wasInView.current || componentInView ? (
+        <div ref={props.scrollTo ? scrollRef : null}>
+          {props.type === "item" ? (
+            <MasonryCard
+              item={props.item}
+              id={props.item.id}
+              index={props.index}
+              inView={componentInView}
+              show={wasInView.current || componentInView}
+              delay={props.delay}
+            ></MasonryCard>
+          ) : props.type === "artists" ? (
+            <ArtistCard artists={props.artists} />
+          ) : props.type === "info" ? (
+            <InfoCard />
+          ) : null}
+        </div>
+      ) : (
+        <div className={classes.cardPlaceholder}></div>
+      )}
     </InView>
   );
 }
@@ -67,8 +81,7 @@ function MasonryWrapper() {
 
   // get the query parameters
   const search = new URLSearchParams(window.location.search);
-  const n =
-    search.get("n") === undefined ? Infinity : Number(search.get("n")) - 1;
+  const n = search.get("n") === null ? undefined : Number(search.get("n")) - 1;
 
   // update the currently viewed item in the url
   const viewedItemCallback = useCallback((n) => {
@@ -83,55 +96,97 @@ function MasonryWrapper() {
     </div>
   );
 }
-//TODO: memo necessary here?
-const Masonry = React.memo(function Masonry(props) {
+
+function Masonry(props) {
   const itemsPerQuery = Number(process.env.REACT_APP_MASONRY_ITEMS_PER_QUERY);
-  const loadOffset = Number(process.env.REACT_APP_MASONRY_NEW_LOAD_OFFSET) + 1;
+  const loadOffset = Number(process.env.REACT_APP_MASONRY_NEW_LOAD_OFFSET);
+
+  const infoCardIndex = Number(process.env.REACT_APP_MASONRY_INFO_CARD_INDEX);
+  const artistCardIndex = Number(
+    process.env.REACT_APP_MASONRY_ARTISTS_CARS_INDEX
+  );
 
   const dispatch = useDispatch();
   const [gridList, setGridList] = useState([]);
   const inViewSet = useRef(new Set());
+  const scrollToIndex = useRef(props.scrollToIndex);
 
-  console.log("Masonry render");
+  console.log("Masonry render", props.scrollToIndex);
 
   function add(items, currentIndex) {
     const lastVisibleIndex = store.getState().query.main.lastVisibleIndex;
+    const scrollToValid = scrollToIndex.current <= lastVisibleIndex;
 
-    const newGridItems = items.map((item, index) => {
-      index = index + currentIndex;
+    const newGridItems = [];
+    let index = currentIndex;
+    for (const item of items) {
+      const scrollTo = index === props.scrollToIndex;
 
-      return (
+      if (index === artistCardIndex) {
+        newGridItems.push(
+          <MasonryCardWrapper
+            type={"artists"}
+            key={index}
+            index={index}
+            wasInView={index <= lastVisibleIndex}
+            callback={callback}
+            scrollTo={scrollTo && scrollToValid}
+            artists={store.getState().query.main.artists}
+          />
+        );
+
+        index++;
+      }
+
+      if (index === infoCardIndex) {
+        newGridItems.push(
+          <MasonryCardWrapper
+            type={"info"}
+            key={index}
+            index={index}
+            wasInView={index <= lastVisibleIndex}
+            callback={callback}
+            scrollTo={scrollTo && scrollToValid}
+          />
+        );
+
+        index++;
+      }
+
+      newGridItems.push(
         <MasonryCardWrapper
+          type={"item"}
           item={item}
           key={index}
           index={index}
           wasInView={index <= lastVisibleIndex}
           callback={callback}
-          scrollTo={
-            index === props.scrollToIndex &&
-            props.scrollToIndex <= lastVisibleIndex
-          }
+          scrollTo={scrollTo && scrollToValid}
+          delay={scrollToValid && !scrollTo}
         />
       );
-    });
+
+      index++;
+    }
+
+    scrollToIndex.current = undefined;
 
     setGridList((currentGridList) => currentGridList.concat(newGridItems));
   }
 
-  async function load(getNumberItems) {
-    const index = store.getState().query.main.items.length;
-
+  async function load(startIndex, startIndexWithExtraCards, first) {
+    console.log("item load", startIndex, startIndexWithExtraCards, first);
     try {
-      const { items, numberItems } = await itemData.getItems({
-        startIndex: index,
-        stopIndex: Math.min(
-          index + itemsPerQuery,
-          store.getState().query.main.numberItems
-        ),
-        getNumberItems,
-      });
+      if (first) {
+        const [{ items, numberItems }, { artists }] = await Promise.all([
+          itemData.getItems({
+            startIndex,
+            stopIndex: startIndex + itemsPerQuery,
+            getNumberItems: first,
+          }),
+          itemData.getArtists(),
+        ]);
 
-      if (getNumberItems)
         dispatch(
           updateMain({
             numberItems: Math.min(
@@ -139,10 +194,23 @@ const Masonry = React.memo(function Masonry(props) {
               Number(process.env.REACT_APP_MASONRY_MAX_ITEMS)
             ),
             items,
+            artists,
           })
         );
-      else dispatch(updateMain({ items }));
-      add(items, index);
+        add(items, startIndexWithExtraCards);
+      } else {
+        const { items } = await itemData.getItems({
+          startIndex,
+          stopIndex: Math.min(
+            startIndex + itemsPerQuery,
+            store.getState().query.main.numberItems
+          ),
+          getNumberItems: false,
+        });
+
+        dispatch(updateMain({ items }));
+        add(items, startIndexWithExtraCards);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -152,27 +220,27 @@ const Masonry = React.memo(function Masonry(props) {
     console.log("callback", index, "in view", inView);
 
     inView ? inViewSet.current.add(index) : inViewSet.current.delete(index);
+    props.viewedItemCallback(Math.min(...inViewSet.current));
 
     if (inView && index > store.getState().query.main.lastVisibleIndex) {
       dispatch(updateMain({ lastVisibleIndex: index }));
 
-      const nItems = store.getState().query.main.items.length;
+      const startIndex = store.getState().query.main.items.length;
+      let startIndexWithExtraCards = startIndex;
+      if (index >= artistCardIndex) startIndexWithExtraCards++;
+      if (index >= infoCardIndex) startIndexWithExtraCards++;
 
       if (
-        index + loadOffset >= nItems &&
-        nItems < store.getState().query.main.numberItems
-      ) {
-        load();
-      }
+        index + loadOffset >= startIndexWithExtraCards &&
+        startIndex < store.getState().query.main.numberItems
+      )
+        load(startIndex, startIndexWithExtraCards, false);
     }
-
-    props.viewedItemCallback(Math.min(...inViewSet.current));
   }
 
   useEffect(() => {
     console.log("initial masonry call");
-
-    if (store.getState().query.main.items.length === 0) load();
+    if (store.getState().query.main.items.length === 0) load(0, 0, true);
     else {
       add(store.getState().query.main.items, 0);
     }
@@ -200,6 +268,6 @@ const Masonry = React.memo(function Masonry(props) {
       )}
     </div>
   );
-});
+}
 
 export default MasonryWrapper;

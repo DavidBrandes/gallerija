@@ -1,4 +1,4 @@
-import Navbar from "../components/layout/Navbar";
+import Navbar from "../components/layout/navbar/Navbar";
 import DetailCard from "../components/structure/detail/DetailCard";
 import Footer from "../components/layout/Footer";
 import Related from "../components/structure/related/Related";

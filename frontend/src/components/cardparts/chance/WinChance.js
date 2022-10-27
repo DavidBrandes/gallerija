@@ -4,7 +4,7 @@ import { convertNumber } from "../../../utility/number";
 
 function WinChance(props) {
   let message;
-  if (props.userStake && props.stake.combinedStakes) {
+  if (props.userStake && props.stake?.combinedStakes) {
     const precision =
       10 ** Number(process.env.REACT_APP_BIDDING_CHANCE_ROUND_PRECISION);
     const chance =

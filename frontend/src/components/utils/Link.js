@@ -9,6 +9,11 @@ function Link(props) {
   const { pathname } = useLocation();
 
   function click() {
+    if (pathname === props.to) {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      return;
+    }
+
     if (props.beforeNavigate) props.beforeNavigate();
     navigate(props.to, { state: { from: pathname, ...props.state } });
   }

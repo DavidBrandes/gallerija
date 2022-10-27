@@ -1,6 +1,6 @@
 import classes from "./css/BidCard.module.css";
 
-import StakeValue from "../stake/StakeValue";
+import StakeValues from "../stake/StakeValues";
 import Time from "../time/Time";
 import StakeText from "../stake/StakeText";
 import Title from "../title/Title";
@@ -15,16 +15,16 @@ import userData from "../../../api/user";
 
 import CurrencyInput from "react-currency-input-field";
 
-import { convertCurrency, convertFromString } from "../../../utility/number";
+import { convertNumber, convertFromString } from "../../../utility/number";
 
 import { useDispatch } from "react-redux";
 import { updateStake } from "../../../store/modules/userSlice";
 import { setOpen } from "../../../store/modules/overlaySlice";
 
-// import { TfiClose } from "react-icons/tfi";
+import CloseIcon from "../../utils/CloseIcon";
 
 //TODO: memo necessary?
-const BidCard = React.memo((props) => {
+function BidCard(props) {
   // const [message, setMessage] = useState("");
   const closeTimeout = Number(process.env.REACT_APP_BID_CARD_CLOSE_TIME);
   const { message, setMessage, inAction, setInAction, value, setValue } =
@@ -32,7 +32,17 @@ const BidCard = React.memo((props) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
 
-  console.log("bid card render");
+  const precision =
+    10 ** Number(process.env.REACT_APP_BIDDING_CHANCE_ROUND_PRECISION);
+  let chance =
+    Math.round(
+      (value / (props.stake.combinedStakes + value - props.userStake)) *
+        precision *
+        100
+    ) / precision;
+  chance = Number.isFinite(chance) ? chance : 0;
+
+  console.log("bid card render", props.id);
 
   async function placeStake() {
     setInAction(true);
@@ -40,7 +50,7 @@ const BidCard = React.memo((props) => {
 
     try {
       const response = await userData.updateStake({
-        id: props.item.id,
+        id: props.id,
         stake: value,
       });
       dispatch(updateStake(response));
@@ -59,40 +69,29 @@ const BidCard = React.memo((props) => {
   }
 
   useEffect(() => {
-    dispatch(setOpen({ open: true }));
+    // dispatch(setOpen({ open: true }));
     inputRef.current.focus();
     return () => {
       if (!inAction) {
         setMessage("");
       }
-      dispatch(setOpen({ open: false }));
+      // dispatch(setOpen({ open: false }));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={classes.container}>
-      <button onClick={() => props.showClick(false)} className={classes.close}>
-        Close
-      </button>
+      <div className={classes.close} onClick={() => props.showClick(false)}>
+        <CloseIcon />
+      </div>
       <div className={classes.title}>
-        <Title item={props.item} />
+        <Title title={props.item.title} subTitle={props.item.subTitle} />
       </div>
       <div className={classes.info}>
-        <div className={classes.stakes}>
-          {!props.stake.vestingEnded ? (
-            <StakeValue
-              title={"Required Stake"}
-              value={props.stake.requiredStake}
-            />
-          ) : null}
-          <StakeValue
-            title={"Combined Stakes"}
-            value={props.stake.combinedStakes}
-          />
-        </div>
+        <StakeValues stake={props.stake} userStake={props.userStake} />
         <div className={classes.stakesText}>
-          <Time stake={props.stake} />
+          <Time stake={props.stake} inView={true} />
           <StakeText stake={props.stake} />
         </div>
       </div>
@@ -109,14 +108,14 @@ const BidCard = React.memo((props) => {
                 ref={inputRef}
                 className={classes.inputForm}
                 placeholder="Enter new Stake"
-                defaultValue={convertCurrency(value)}
+                defaultValue={value / 100}
                 onValueChange={(value) => {
                   setValue(convertFromString(value));
                 }}
                 // suffix={" €"}
                 // disableAbbreviations={true}
                 intlConfig={{
-                  locale: process.env.REACT_APP_CURRENCY_LOCALES,
+                  locale: "de-De",
                   currency: "EUR",
                 }}
                 maxLength={7}
@@ -132,9 +131,7 @@ const BidCard = React.memo((props) => {
               />
               <span
                 className={classes.inputFormText}
-              >{`Your current Stake: ${convertCurrency(
-                props.userStake
-              )}`}</span>
+              >{`Predicted win chance: ${convertNumber(chance)} %`}</span>
             </div>
             <button
               className={`${
@@ -144,7 +141,11 @@ const BidCard = React.memo((props) => {
               }`}
               onClick={placeStake}
             >
-              {props.userStake > 0 ? "Update Stake" : "Place Stake"}
+              {props.userStake <= 0
+                ? "Place Stake"
+                : props.stake.biddingStarted
+                ? "Raise Stake"
+                : "Update Stake"}
             </button>
           </div>
         </div>
@@ -154,6 +155,6 @@ const BidCard = React.memo((props) => {
       </div>
     </div>
   );
-});
+}
 
 export default BidCard;

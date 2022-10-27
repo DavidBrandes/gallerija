@@ -18,12 +18,13 @@ import { setSearch } from "../../../utility/location";
 import { useSelector } from "react-redux";
 import React, { useState, useCallback } from "react";
 
-//TODO: memo necesary?
-const MasonryCard = React.memo((props) => {
-  const userStake = useSelector(
-    (state) => state.user.stakes[props.item.id] ?? 0
-  );
-  const [stake, setStake] = useState({});
+function MasonryCard(props) {
+  const userStake = useSelector((state) => {
+    if (state.user.stakes[props.id] !== undefined && props.inView)
+      return state.user.stakes[props.id];
+    else return 0;
+  });
+  const [stake, setStake] = useState();
 
   const setStakeCallback = useCallback((newStake) => {
     setStake(newStake);
@@ -31,45 +32,41 @@ const MasonryCard = React.memo((props) => {
 
   console.log("Masonry card render", props.item.id);
 
-  //TODO: make sure updates are withheld when not in view
-
   return (
     <div className={classes.wrapper}>
       <StakeCallback
         id={props.item.id}
         setStake={setStakeCallback}
         inView={props.inView}
+        delay={props.delay}
       ></StakeCallback>
-      {props.show ? (
-        <div className={classes.container}>
-          <Image
-            to={`/detail/${props.item.id}`}
-            beforeNavigate={setSearch.bind(null, { n: props.index + 1 })}
-            item={props.item}
-          />
-          <div className={classes.text}>
-            <Title item={props.item} />
-            <StakeValues stake={stake} userStake={userStake} />
-            <Time stake={stake} inView={props.inView} />
-            <StakeText stake={stake} />
-            <WinText item={props.item} />
-            <WinChance stake={stake} userStake={userStake} />
-            <div className={classes.bidbutton}>
-              <BidButton
-                stake={stake}
-                userStake={userStake}
-                item={props.item}
-              />
-            </div>
-            <ViewButton item={props.item} index={props.index}></ViewButton>
-            <Wishlist item={props.item} />
+      <div className={classes.container}>
+        <Image
+          to={`/detail/${props.item.id}`}
+          beforeNavigate={setSearch.bind(null, { n: props.index + 1 })}
+          item={props.item}
+        />
+        <div className={classes.text}>
+          <Title title={props.item.title} subTitle={props.item.subTitle} />
+          <StakeValues stake={stake} userStake={userStake} />
+          <Time stake={stake} inView={props.inView} />
+          <StakeText stake={stake} />
+          <WinText id={props.item.id} />
+          <WinChance stake={stake} userStake={userStake} />
+          <div className={classes.bidbutton}>
+            <BidButton
+              stake={stake}
+              userStake={userStake}
+              item={props.item}
+              inView={props.inView}
+            />
           </div>
+          <ViewButton item={props.item} index={props.index}></ViewButton>
+          <Wishlist id={props.item.id} />
         </div>
-      ) : (
-        <div className={classes.placeholder} />
-      )}
+      </div>
     </div>
   );
-});
+}
 
 export default MasonryCard;

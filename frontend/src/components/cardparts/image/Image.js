@@ -1,7 +1,8 @@
 import classes from "./css/Image.module.css";
 import Link from "../../utils/Link";
+import React from "react";
 
-function Image(props) {
+const Image = React.memo((props) => {
   return (
     <div className={classes.container}>
       <Link
@@ -17,6 +18,6 @@ function Image(props) {
       </Link>
     </div>
   );
-}
+});
 
 export default Image;

@@ -10,21 +10,23 @@ class Item {
         subTitle: "Gustav Klimt",
         id: 0,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
-          Country: "Germany",
+          Medium: "Oil on Canvas",
+          Measures: "H 149,9 cm x W 110,5 cm",
+          Country: "Austria",
+          Year: "1912",
         },
       },
       {
-        srcLow: ["/images/The_trees.webp", "/images/The_trees.webp"],
-        srcHigh: ["/images/The_trees.webp", "/images/The_trees.webp"],
+        srcLow: ["/images/The_trees.webp"],
+        srcHigh: ["/images/The_trees.webp"],
         title: "The Trees, Early Afternoon",
         subTitle: "William A. Harper",
         id: 1,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Medium: "Oil on Canvas",
+          Measures: "H 50.8 cm × W 66 cm",
           Country: "USA",
+          Year: "1905",
         },
       },
       {
@@ -34,9 +36,10 @@ class Item {
         subTitle: "Egon Schiele",
         id: 2,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Medium: "Gouache, watercolor, and graphite on paper",
+          Measures: "H 31.4 cm x W 23.2 cm",
           Country: "Austria",
+          Year: "1908",
         },
       },
       {
@@ -46,9 +49,10 @@ class Item {
         subTitle: "Henri-Edmond Delacroix",
         id: 3,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Medium: "Watercolor over graphite",
+          Measures: "H 17.1 cm x W 24.1 cm",
           Country: "France",
+          Year: "1908",
         },
       },
       {
@@ -58,9 +62,10 @@ class Item {
         subTitle: "Auguste Rodin",
         id: 4,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Medium: "Graphite and watercolor",
+          Measures: "H 49.4 cm x W 31.9 cm",
           Country: "France",
+          Year: "1900–1912",
         },
       },
       {
@@ -70,9 +75,10 @@ class Item {
         subTitle: "Paul Cézanne",
         id: 5,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Medium: "Oil on Canvas",
+          Measures: "H 73 cm x W 92.4 cm",
           Country: "France",
+          Year: "ca. 1890",
         },
       },
       {
@@ -82,9 +88,10 @@ class Item {
         subTitle: "Diego Rodríguez de Silva y Velázquez",
         id: 6,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
-          Country: "Netherlands",
+          Medium: "Oil on Canvas",
+          Measures: "H 81,3 cm × W 69,9 cm",
+          Country: "Spain",
+          Year: "1650",
         },
       },
       {
@@ -94,9 +101,10 @@ class Item {
         subTitle: "Jan Brueghel the Elder",
         id: 7,
         description: {
-          Type: "Oil on Paper",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
-          Country: "Netherlands",
+          Medium: "Pen and Ink on Paper",
+          Measures: "H 20.0 cm x W 30.5 cm",
+          Country: "Belgium",
+          Year: "ca. 1588–89",
         },
       },
       {
@@ -106,9 +114,10 @@ class Item {
         subTitle: "Henri Rousseau",
         id: 8,
         description: {
-          Type: "Oil on Canvas",
-          Measures: "11.8 W x 9.8 H x 0.7 D in",
+          Medium: "Oil on Canvas",
+          Measures: "H 113.7 cm x W 160 cm",
           Country: "France",
+          Year: "ca. 1907",
         },
       },
     ];
@@ -146,6 +155,18 @@ class Item {
         resolve({
           items: items.slice(startIndex, stopIndex),
           numberItems: getNumberItems ? items.length : undefined,
+        });
+      }, this.loadTime);
+    });
+  }
+
+  getArtists() {
+    const artists = this.items.map((item) => item.subTitle);
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          artists,
         });
       }, this.loadTime);
     });

@@ -1,14 +1,13 @@
 import classes from "./Test.module.css";
 
-import Related from "../components/structure/related/Related";
+import ArtistCard from "../components/structure/masonry/ArtistCard";
+import InfoCard from "../components/structure/masonry/InfoCard";
 
 function Test() {
   return (
     <div className={classes.parent}>
-      <div className={classes.child}></div>
-
-      <Related id={3} />
-      <div className={classes.child}></div>
+      <ArtistCard></ArtistCard>
+      <InfoCard></InfoCard>
     </div>
   );
 }

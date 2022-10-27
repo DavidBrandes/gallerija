@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import stakeData from "../../api/stake";
 
 import { objectEqual } from "../../utility/object";
 
-//TODO: do i need memo here?
 const StakeCallback = React.memo((props) => {
   //TODO: why does this trigger a double rerender for the parent
   //on the first two interval calls; even though the data passed to
@@ -15,6 +14,7 @@ const StakeCallback = React.memo((props) => {
   const stakeUpdateInterval = Number(
     process.env.REACT_APP_STAKE_UPDATE_INTERVAL
   );
+  const delay = useRef(props.delay);
 
   async function load() {
     try {
@@ -31,10 +31,18 @@ const StakeCallback = React.memo((props) => {
       props.setStake({});
     }
   }
+  //in masonry, when scrollTo is set we have a small window where the first
+  //masonry elements will be in view and therefore call an upi update that then
+  //becomes unecessary later on. Thats why we set the timeout, maybe there is
+  //also a better way to achieve this
 
   useEffect(() => {
     if (props.inView) {
-      load();
+      const timeout = setTimeout(
+        () => load(),
+        delay.current ? Number(process.env.REACT_APP_STAKE_UPDATE_TIMEOUT) : 0
+      );
+
       let interval;
       if (Number.isFinite(stakeUpdateInterval))
         interval = setInterval(() => {
@@ -43,10 +51,23 @@ const StakeCallback = React.memo((props) => {
 
       return () => {
         clearInterval(interval);
+        clearTimeout(timeout);
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.inView]);
+
+  useEffect(() => {
+    if (delay.current) {
+      const timeout = setTimeout(() => {
+        delay.current = false;
+      }, Number(process.env.REACT_APP_STAKE_UPDATE_TIMEOUT));
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, []);
 
   return null;
 });

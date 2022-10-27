@@ -1,7 +1,7 @@
-@value max-image-width from '/src/style/size.css';
+@value max-image-width, masonry-card-padding-bottom from '/src/style/size.css';
 
 .wrapper {
-  padding-bottom: 8rem;
+  padding-bottom: masonry-card-padding-bottom;
   margin: 0 auto;
 
   max-width: max-image-width;
@@ -27,11 +27,6 @@
   flex-direction: column;
 
   width: 100%;
-}
-
-.placeholder {
-  max-width: max-image-width;
-  height: 600px;
 }
 
 .bidbutton {

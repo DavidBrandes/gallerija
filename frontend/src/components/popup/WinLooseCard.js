@@ -3,23 +3,27 @@ import Link from "../utils/Link";
 import Overlay from "../utils/Overlay";
 import { useRef, useEffect, useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { updateShowed } from "../../store/modules/winSlice";
 
 import store from "../../store/store";
 
 import itemData from "../../api/item";
 
-function WinLooseCardWrapper(props) {
+function WinLooseCardWrapper() {
   const ref = useRef(null);
   const [item, setItem] = useState({});
   const win = useSelector((state) => state.win.win);
+  const dispatch = useDispatch();
+
+  console.log("wind loose render");
 
   async function openWinLooseCard() {
     try {
       const { item } = await itemData.getItem({ id: win.id });
       setItem(item);
-      if (!store.getState().overlay.open && !ref.current.showOverlay)
-        ref.current.showClick(true);
+      if (!ref.current.showOverlay) ref.current.showClick(true);
     } catch (error) {
       console.error(error);
     }
@@ -34,15 +38,19 @@ function WinLooseCardWrapper(props) {
     );
     if (
       win.id !== undefined &&
-      !store.getState().overlay.open &&
-      !ref.current.showOverlay
+      !ref.current.showOverlay &&
+      !win.showed &&
+      process.env.REACT_APP_SHOW_WIN_POPUP === "true"
     )
       openWinLooseCard();
+
+    dispatch(updateShowed());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [win]);
 
   return (
-    <Overlay ref={ref} zValue={6}>
+    <Overlay ref={ref} zValue={4}>
       <WinLooseCard item={item} won={win.won} />
     </Overlay>
   );

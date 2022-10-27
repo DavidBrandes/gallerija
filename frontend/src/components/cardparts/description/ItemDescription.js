@@ -1,9 +1,10 @@
 import classes from "./css/ItemDescription.module.css";
+import React from "react";
 
-function ItemDescription(props) {
+const ItemDescription = React.memo((props) => {
   return (
     <div className={classes.container}>
-      {Object.entries(props.item.description).map((entry, i) => {
+      {Object.entries(props.description).map((entry, i) => {
         return (
           <div key={i}>
             <h4 className={classes.title}>{entry[0]}</h4>
@@ -13,6 +14,6 @@ function ItemDescription(props) {
       })}
     </div>
   );
-}
+});
 
 export default ItemDescription;

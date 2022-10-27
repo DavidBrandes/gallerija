@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import store from "./store/store";
 import { Provider } from "react-redux";
 
@@ -17,35 +18,27 @@ root.render(
   </Provider>
 );
 
-// TODO: general functionalities
-
-// Bring back Artist + Info Card
-
-// check that potential undefined stake, item and user values are handled correctly
-// all values passed as props fit, biddingStarted Values are placed correctly
-// check if everything rerenders as often and as much as it should
-// check stake and item rerenders when the component is just replaced (e.g in detail page)
-
 // TODO: bringing it all together
 
-// add image description
-
+// make placeholders for load components
 // make menu
 // make footer
 
-// finetune design
+// finetune design + texts
 // make responsive
 
-// test, remove logs, warnings, deploy, unused css classes, imports
+// test, check warnings, deploy
 
 // TODO: Future stuff
 
+// add in not found page, error redirects, and no items found messages, api errors
 // cookie popup
 // newsletter popup
 // add login logout functionality
 // make overiview page + search + pagination + store in querySlice
-// add in not found page, error redirects, and no items found messages
 // upgrade redux to saga
+// replace componets that use stake with a placeholder until loaded
+// maybe store masonry stake info in store -> on page return the height will then be kept
 
 // Ideas
 // have a webscoket instead of the recurring user api call

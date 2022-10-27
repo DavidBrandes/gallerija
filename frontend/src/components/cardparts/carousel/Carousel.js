@@ -3,6 +3,7 @@ import { default as BootstrapCarousel } from "react-bootstrap/Carousel";
 import { useRef } from "react";
 import Overlay from "../../utils/Overlay";
 import classes from "./css/Carousel.module.css";
+import React from "react";
 
 function Image(props) {
   return (
@@ -21,14 +22,14 @@ function ImageWrapper(props) {
   const ref = useRef(null);
 
   return (
-    <div>
+    <React.Fragment>
       <Image
         src={props.srcLow}
         alt={props.title}
         click={() => ref.current.showClick(true)}
         className={classes.imageSmall}
       />
-      <Overlay ref={ref}>
+      <Overlay ref={ref} zValue={3}>
         <Image
           src={props.srcHigh}
           alt={props.title}
@@ -36,39 +37,39 @@ function ImageWrapper(props) {
           className={classes.imageBig}
         />
       </Overlay>
-    </div>
+    </React.Fragment>
   );
 }
 
-function Carousel(props) {
+const Carousel = React.memo((props) => {
   return (
-    <div>
-      {props.item.srcLow.length > 1 ? (
+    <React.Fragment>
+      {props.srcLow.length > 1 ? (
         <BootstrapCarousel
           keyboard={false}
           className={classes.container}
           slide={false}
           interval={null}
         >
-          {props.item.srcLow.map((image, i) => (
+          {props.srcLow.map((image, i) => (
             <BootstrapCarousel.Item key={i} className={classes.item}>
               <ImageWrapper
-                srcLow={props.item.srcLow[i]}
-                srcHigh={props.item.srcHigh[i]}
-                title={props.item.title}
+                srcLow={props.srcLow[i]}
+                srcHigh={props.srcHigh[i]}
+                title={props.title}
               ></ImageWrapper>
             </BootstrapCarousel.Item>
           ))}
         </BootstrapCarousel>
       ) : (
         <ImageWrapper
-          srcLow={props.item.srcLow[0]}
-          srcHigh={props.item.srcHigh[0]}
-          title={props.item.title}
+          srcLow={props.srcLow[0]}
+          srcHigh={props.srcHigh[0]}
+          title={props.title}
         ></ImageWrapper>
       )}
-    </div>
+    </React.Fragment>
   );
-}
+});
 
 export default Carousel;

@@ -1,4 +1,4 @@
-@value custom-grey, hover-color, error-color from '/src/style/colors.css';
+@value custom-grey, hover-color from '/src/style/colors.css';
 
 .container {
   display: flex;
@@ -20,10 +20,7 @@
   position: absolute;
   top: 2.4rem;
   right: 2.4rem;
-}
-
-.close:hover {
-  color: hover-color;
+  font-size: 3rem;
 }
 
 .title {

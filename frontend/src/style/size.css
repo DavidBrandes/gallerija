@@ -3,3 +3,6 @@
 @value grid-card-image-height: 35rem;
 @value grid-card-text-height: 22.2rem;
 @value grid-card-padding-height: 3.2rem;
+@value grid-card-padding-width: 3.2rem;
+
+@value masonry-card-padding-bottom: 8rem;

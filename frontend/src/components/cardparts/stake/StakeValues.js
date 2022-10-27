@@ -3,27 +3,27 @@ import StakeValue from "./StakeValue";
 import React from "react";
 
 function StakeValues(props) {
-  if (props.stake)
-    return (
-      <React.Fragment>
-        {props.stake.vestingStarted ? (
-          <StakeValue title={"Your Stake"} value={props.userStake} />
-        ) : null}
-        {props.stake.vestingStarted ? (
-          <StakeValue
-            title={"Combined Stakes"}
-            value={props.stake.combinedStakes}
-          />
-        ) : null}
-        {!props.stake.vestingEnded ? (
+  return (
+    <React.Fragment>
+      {props.stake ? (
+        <React.Fragment>
+          {props.stake.vestingStarted ? (
+            <StakeValue title={"Your Stake"} value={props.userStake} />
+          ) : null}
+          {props.stake.vestingStarted ? (
+            <StakeValue
+              title={"Combined Stakes"}
+              value={props.stake.combinedStakes}
+            />
+          ) : null}
           <StakeValue
             title={"Required Stake"}
             value={props.stake.requiredStake}
           />
-        ) : null}
-      </React.Fragment>
-    );
-  else return null;
+        </React.Fragment>
+      ) : null}
+    </React.Fragment>
+  );
 }
 
 export default StakeValues;

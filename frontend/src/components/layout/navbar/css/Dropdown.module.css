@@ -1,0 +1,33 @@
+@value hover-color from '/src/style/colors.css';
+
+.container {
+  font-size: 2rem;
+}
+
+.wrapper {
+  width: 0;
+}
+
+.title {
+  cursor: pointer;
+}
+.items {
+  width: max-content;
+  padding-top: 1.2rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.item:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.item {
+  width: max-content;
+}
+
+.container:hover .items {
+  display: flex;
+}

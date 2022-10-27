@@ -7,30 +7,37 @@ import BidCard from "./BidCard";
 
 import BidContext from "./BidContext";
 
-//TODO: meome necessary?
-const BidButton = React.memo((props) => {
+function BidButton(props) {
   const ref = useRef(null);
   const [message, setMessage] = useState("");
   const [inAction, setInAction] = useState(false);
   const [value, setValue] = useState(props.userStake);
 
   return (
-    <div>
+    <React.Fragment>
       <BidContext.Provider
-        value={{ message, setMessage, inAction, setInAction, value, setValue }}
+        value={{
+          message,
+          setMessage,
+          inAction,
+          setInAction,
+          value,
+          setValue,
+        }}
       >
-        <Overlay ref={ref}>
+        <Overlay ref={ref} zValue={5}>
           <BidCard
+            id={props.item.id}
             stake={props.stake}
             item={props.item}
             userStake={props.userStake}
           ></BidCard>
         </Overlay>
       </BidContext.Provider>
-      {props.stake && //TODO: dont show wehn vesting ended but bidding did not start
-      props.stake.vestingStarted &&
-      !props.stake.biddingEnded ? (
-        <div>
+      {props.stake &&
+      ((props.stake.vestingStarted && !props.stake.vestingEnded) ||
+        (props.stake.biddingStarted && !props.stake.biddingEnded)) ? (
+        <React.Fragment>
           {props.userStake <= 0 ? (
             <div className={classes.container}>
               <button
@@ -65,10 +72,10 @@ const BidButton = React.memo((props) => {
               </button>
             </div>
           )}
-        </div>
+        </React.Fragment>
       ) : null}
-    </div>
+    </React.Fragment>
   );
-});
+}
 
 export default BidButton;

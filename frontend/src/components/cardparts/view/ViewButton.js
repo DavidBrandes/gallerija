@@ -5,7 +5,7 @@ import Link from "../../utils/Link";
 
 import { setSearch } from "../../../utility/location";
 
-function ViewButton(props) {
+const ViewButton = React.memo((props) => {
   return (
     <div className={classes.container}>
       <Link
@@ -17,6 +17,6 @@ function ViewButton(props) {
       </Link>
     </div>
   );
-}
+});
 
 export default ViewButton;
