@@ -11,7 +11,7 @@ class Stake {
         vestingEnded: false,
         biddingStarted: false,
         biddingEnded: false,
-        vestingTimeStart: this.time + 60000, //in 1 minutes
+        vestingTimeStart: this.time + 120000, //in 2 minutes
         vestingTimeEnd: undefined,
         biddingTimeStart: undefined,
         biddingTimeEnd: undefined,
@@ -20,13 +20,12 @@ class Stake {
         id: 1,
         combinedStakes: 0,
         requiredStake: 40000,
-        vestingStarted: true,
+        vestingStarted: false,
         vestingEnded: false,
         biddingStarted: false,
         biddingEnded: false,
-        vestingTimeStart: this.time, //now
-        vestingTimeEnd:
-          this.time + Number(process.env.REACT_APP_API_VESTING_TIME),
+        vestingTimeStart: this.time + 60000, //in 1 minutes
+        vestingTimeEnd: undefined,
         biddingTimeStart: undefined,
         biddingTimeEnd: undefined,
       },
@@ -38,9 +37,9 @@ class Stake {
         vestingEnded: false,
         biddingStarted: false,
         biddingEnded: false,
-        vestingTimeStart:
-          this.time - Number(process.env.REACT_APP_API_VESTING_TIME) + 60000, //ends in 1 minute
-        vestingTimeEnd: this.time + 60000,
+        vestingTimeStart: this.time, //ends now
+        vestingTimeEnd:
+          this.time + Number(process.env.REACT_APP_API_VESTING_TIME),
         biddingTimeStart: undefined,
         biddingTimeEnd: undefined,
       },
@@ -49,19 +48,19 @@ class Stake {
         combinedStakes: 75000,
         requiredStake: 90000,
         vestingStarted: true,
-        vestingEnded: true,
+        vestingEnded: false,
         biddingStarted: false,
         biddingEnded: false,
         vestingTimeStart:
-          this.time - 60000 - Number(process.env.REACT_APP_API_VESTING_TIME),
-        vestingTimeEnd: this.time - 60000, //in one minute
+          this.time + 60000 - Number(process.env.REACT_APP_API_VESTING_TIME),
+        vestingTimeEnd: this.time + 60000, //in one minute
         biddingTimeStart: undefined,
         biddingTimeEnd: undefined,
       },
       {
         id: 4,
-        combinedStakes: 66000,
-        requiredStake: 60000,
+        combinedStakes: 20000,
+        requiredStake: 16000,
         vestingStarted: true,
         vestingEnded: true,
         biddingStarted: true,
@@ -102,14 +101,14 @@ class Stake {
           Number(process.env.REACT_APP_API_BIDDING_TIME) -
           Number(process.env.REACT_APP_API_VESTING_TIME),
         vestingTimeEnd:
-          this.time + 30000 - Number(process.env.REACT_APP_API_BIDDING_TIME),
+          this.time + 60000 - Number(process.env.REACT_APP_API_BIDDING_TIME),
         biddingTimeStart:
-          this.time + 30000 - Number(process.env.REACT_APP_API_BIDDING_TIME),
-        biddingTimeEnd: this.time + 30000, //in 30 seconds
+          this.time + 60000 - Number(process.env.REACT_APP_API_BIDDING_TIME),
+        biddingTimeEnd: this.time + 60000, //in 60 seconds
       },
       {
         id: 7,
-        winnerId: 123,
+        winnerId: 69,
         combinedStakes: 92200,
         requiredStake: 50000,
         vestingStarted: true,
@@ -128,7 +127,7 @@ class Stake {
       },
       {
         id: 8,
-        winnerId: 69,
+        winnerId: 123,
         combinedStakes: 124000,
         requiredStake: 70000,
         vestingStarted: true,
@@ -184,7 +183,7 @@ class Stake {
     }, Number(process.env.REACT_APP_API_UPDATE_INTERVAL));
     //THose are here to make everything work
     //very hacky workaround, in a real backend this would work differently anyways
-    this.userStakes = { 2: 5000, 4: 3000, 6: 70000, 7: 10000 };
+    this.userStakes = { 2: 5000, 4: 15000, 8: 10000 };
   }
   // only used from data api
   updateStake(id, diff, userStake) {

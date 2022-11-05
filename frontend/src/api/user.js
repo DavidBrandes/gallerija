@@ -3,9 +3,9 @@ import stakeData from "./stake";
 class User {
   constructor() {
     this.loadTime = Number(process.env.REACT_APP_API_CALL_TIME);
-    this.stakes = { 2: 5000, 4: 3000, 6: 70000, 7: 10000 };
+    this.stakes = { 2: 5000, 4: 15000, 8: 10000 };
     this.wishlist = { 2: true, 4: true };
-    this.won = { 7: true };
+    this.won = { 8: true };
     this.id = 123;
     this.interval = setInterval(() => {
       const newWon = {};
