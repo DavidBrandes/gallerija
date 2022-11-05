@@ -33,7 +33,7 @@
   flex-direction: column;
   text-align: center;
 
-  gap: 1.2rem;
+  gap: 1.6rem;
 
   border-bottom: 1px solid;
   padding: 2.4rem 3.2rem 1.6rem 3.2rem;
@@ -42,10 +42,12 @@
 
 .subTitle {
   font-size: 2.4rem;
+  line-height: 1.2;
 }
 
 .title {
   font-size: 3rem;
+  line-height: 1.2;
 }
 
 .text {

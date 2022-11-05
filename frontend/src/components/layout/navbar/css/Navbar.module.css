@@ -4,7 +4,7 @@
   position: sticky;
   top: -1px;
   width: 100%;
-  height: calc(1.6rem + 20px + 1px);
+  height: calc(1.6rem + 2rem + 1px);
 }
 
 .container {
@@ -27,7 +27,7 @@
   clip-path: polygon(0% 0%, 100% 0%, 100% 250%, 0% 250%);
 
   /* We dont change the size on purpose */
-  font-size: 20px;
+  font-size: 2rem;
 }
 
 .titleContainer {

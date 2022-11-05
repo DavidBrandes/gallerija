@@ -36,7 +36,7 @@ function MasonryCardWrapper(props) {
         scrollRef.current.scrollIntoView({ behavior: "instant" });
       }, Number(process.env.REACT_APP_SCROLL_RESTORE_TIMEOUT));
 
-      return () => clearTimeout(timeout)
+      return () => clearTimeout(timeout);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -261,9 +261,9 @@ function Masonry(props) {
         <MasonryCSS
           breakpointCols={{
             default:
-              window.innerWidth <= 800 ? 1 : window.innerWidth <= 1520 ? 2 : 3,
+              window.innerWidth <= 800 ? 1 : window.innerWidth <= 1280 ? 2 : 3,
             800: 1,
-            1520: 2,
+            1280: 2,
             100000: 3,
           }}
           className={classes.container}

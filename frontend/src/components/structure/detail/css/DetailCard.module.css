@@ -167,10 +167,3 @@
     text-align: center;
   }
 }
-
-@media (max-width: 25em) {
-  .descriptionText {
-    font-size: 1.6rem;
-    padding-left: 0;
-  }
-}
