@@ -87,6 +87,7 @@
 .descriptionText {
   font-size: 1.8rem;
   padding-left: 0.8rem;
+  box-decoration-break: clone;
 }
 
 .stakesContainer {
@@ -165,12 +166,5 @@
 
   .chanceTextContainer {
     text-align: center;
-  }
-}
-
-@media (max-width: 25em) {
-  .descriptionText {
-    font-size: 1.6rem;
-    padding-left: 0;
   }
 }

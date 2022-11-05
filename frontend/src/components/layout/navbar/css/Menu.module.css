@@ -84,7 +84,7 @@
   padding-bottom: 4.8rem;
 }
 
-@media (max-width: 30em) {
+@media (max-width: 35em) {
   .container {
     min-width: 100vw;
     height: 100vh;
@@ -110,7 +110,7 @@
   }
 }
 
-@media (max-height: 35em) {
+@media (max-height: 40em) {
   .title {
     display: none;
   }

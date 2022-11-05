@@ -32,11 +32,7 @@ function MasonryCardWrapper(props) {
   useEffect(() => {
     if (scrollRef.current && props.scrollTo) {
       console.log("scroll", props.index);
-      const timeout = setTimeout(() => {
-        scrollRef.current.scrollIntoView({ behavior: "instant" });
-      }, Number(process.env.REACT_APP_SCROLL_RESTORE_TIMEOUT));
-
-      return () => clearTimeout(timeout);
+      scrollRef.current.scrollIntoView({ behavior: "instant" });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,10 +1,7 @@
 @value max-image-width from '/src/style/size.css';
 
 .container {
-  /* display: -webkit-box;
-  display: -ms-flexbox; */
   display: flex;
-  /* margin-left: 0px; */
   width: auto;
   max-width: 180rem;
   padding: 0 7%;

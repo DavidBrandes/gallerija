@@ -1,7 +1,6 @@
 @value hover-color from '/src/style/colors.css';
 
 .container {
-  /* We dont change the size on purpose */
   font-size: 2rem;
 }
 
