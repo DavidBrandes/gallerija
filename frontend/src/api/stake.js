@@ -174,6 +174,7 @@ class Stake {
             //determine a winner
             const fraction =
               (this.userStakes[stake.id] ?? 0) / stake.combinedStakes;
+
             if (Math.sqrt(fraction) >= 1 - Math.random())
               stake.winnerId = 123; //user wins
             else stake.winnerId = 69; //someone else wins
@@ -183,7 +184,7 @@ class Stake {
     }, Number(process.env.REACT_APP_API_UPDATE_INTERVAL));
     //THose are here to make everything work
     //very hacky workaround, in a real backend this would work differently anyways
-    this.userStakes = { 2: 50, 6: 700, 7: 100 };
+    this.userStakes = { 2: 5000, 4: 3000, 6: 70000, 7: 10000 };
   }
   // only used from data api
   updateStake(id, diff, userStake) {

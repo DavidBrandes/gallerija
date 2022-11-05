@@ -20,14 +20,7 @@ root.render(
 
 // TODO: bringing it all together
 
-// make placeholders for load components
-// make menu
-// make footer
-
-// finetune design + texts
-// make responsive
-
-// test, check warnings, deploy
+//intro text
 
 // TODO: Future stuff
 

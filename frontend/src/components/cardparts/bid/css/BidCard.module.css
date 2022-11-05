@@ -6,12 +6,11 @@
   align-items: center;
   flex-direction: column;
 
-  font-size: 1.8rem;
-
   width: 80vw;
-  max-width: 650px;
+  max-width: 750px;
 
   padding: 4.8rem;
+  font-size: 1.8rem;
 
   position: relative;
 }
@@ -21,13 +20,61 @@
   top: 2.4rem;
   right: 2.4rem;
   font-size: 3rem;
+  stroke-width: 1.7;
+}
+
+.close:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  gap: 1.2rem;
+  width: 100%;
+
+  border-bottom: 1px solid;
+  padding: 2.4rem 2.4rem 1.6rem 2.4rem;
+  margin: 0 2.4rem 1.2rem 2.4rem;
+}
+
+.subTitle {
+  font-size: 2.4rem;
 }
 
 .title {
-  width: 90%;
-  padding-bottom: 3.2rem;
-  margin-bottom: 2.4rem;
-  border-bottom: 1px solid;
+  font-size: 3rem;
+}
+
+.stakesContainer {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.stakeContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stakeTitle {
+  font-size: 1.6rem;
+  color: custom-grey;
+}
+
+.stakeValue {
+  font-size: 1.8rem;
+  padding-left: 0.8rem;
+}
+
+.time {
+  font-size: 1.8rem;
 }
 
 .info {
@@ -36,19 +83,23 @@
   justify-content: space-between;
   width: 100%;
 
-  margin-bottom: 6.4rem;
+  margin: 1.2rem 0 4.8rem 0;
 }
 
-.stakes {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+.chanceTextContainer {
+  font-size: 1.8rem;
 }
 
-.stakesText {
+.leftPart {
+  flex: 1;
+}
+
+.rightPart {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  text-align: right;
+  width: 100%;
+  align-items: right;
   gap: 1.2rem;
 }
 
@@ -65,6 +116,7 @@
 
 .inputText {
   margin: 0 2.4rem 4.8rem 2.4rem;
+  font-size: 1.8rem;
 }
 
 .inputAction {
@@ -77,12 +129,13 @@
 }
 
 .inputForm {
-  width: 22rem;
+  width: 24rem;
   height: 3.2rem;
   border: 1px solid black;
   border-radius: 1px;
 
-  font-size: 1.8rem;
+  /* We set it on purpose to disable zoom */
+  font-size: 17px;
 
   text-align: right;
   padding-right: 1.6rem;
@@ -112,8 +165,13 @@
   color: hover-color;
 }
 
+.inputButtonActive {
+  color: black;
+}
+
 .inputButtonPassive {
   pointer-events: none;
+  color: black;
 }
 
 .message {
@@ -136,6 +194,55 @@
 
   .container {
     width: 90vw;
-    padding: 3.2rem 2.4rem 6.4rem 2.4rem;
+    padding: 3.2rem 2.4rem;
+  }
+
+  .stakeTitle {
+    font-size: 1.6rem;
+    color: custom-grey;
+    text-align: center;
+  }
+
+  .stakeValue {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .info {
+    display: block;
+  }
+
+  .stakesContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3.2rem;
+  }
+
+  .rightPart {
+    align-items: center;
+  }
+}
+
+@media (max-width: 25em) {
+  .container {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 2.4rem;
+  }
+
+  .inputText {
+    margin: 0 1.2rem 4.8rem 1.2rem;
+  }
+
+  .titleContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    gap: 1.2rem;
+    width: 100%;
+
+    padding: 4.8rem 0 1.6rem 0;
+    margin: 0 2.4rem 1.2rem 2.4rem;
   }
 }

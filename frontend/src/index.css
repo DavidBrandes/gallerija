@@ -40,6 +40,10 @@ Default: 1px
 
 75em (1200px) / 60em (960px) / 50em (800px) / 40em (640px) / 35em (560px) / 
 
+-- 06 Z-Hirachy
+
+ 1 - Base, 2 - Navbar, 3 - Carousel, 4 - WinLoose, 5 - Bid, 6 - Menu
+
 */
 
 * {
@@ -59,14 +63,14 @@ body {
   color: #000;
 }
 
-@media (max-width: 80em) {
+@media (max-width: 75em) {
   html {
     /* 9px / 16px  */
     font-size: 56.25%;
   }
 }
 
-@media (max-width: 70em) {
+@media (max-width: 60em) {
   html {
     /* 8px / 16px = 0.5 = 50% */
     font-size: 50%;
@@ -83,4 +87,11 @@ h3 {
 button {
   background-color: transparent;
   border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+  cursor: auto;
 }

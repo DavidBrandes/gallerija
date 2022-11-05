@@ -1,11 +1,13 @@
 @value hover-color from '/src/style/colors.css';
 
-.container {
+.backTopContainer {
   display: flex;
   justify-content: center;
+
+  font-size: 1.6rem;
 }
 
-.text:hover {
+.backTopContainer:hover {
   color: hover-color;
   cursor: pointer;
 }

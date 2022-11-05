@@ -4,25 +4,36 @@ import React from "react";
 
 function StakeValues(props) {
   return (
-    <React.Fragment>
-      {props.stake ? (
-        <React.Fragment>
-          {props.stake.vestingStarted ? (
-            <StakeValue title={"Your Stake"} value={props.userStake} />
-          ) : null}
-          {props.stake.vestingStarted ? (
-            <StakeValue
-              title={"Combined Stakes"}
-              value={props.stake.combinedStakes}
-            />
-          ) : null}
-          <StakeValue
-            title={"Required Stake"}
-            value={props.stake.requiredStake}
-          />
-        </React.Fragment>
+    <div className={props.stakesContainerClass}>
+      {props.stake?.vestingStarted ? (
+        <StakeValue
+          title={"Your Stake"}
+          value={props?.userStake}
+          align={props.align}
+          containerClass={props.containerClass}
+          valueClass={props.valueClass}
+          titleClass={props.titleClass}
+        />
       ) : null}
-    </React.Fragment>
+      {props.stake?.vestingStarted ? (
+        <StakeValue
+          align={props.align}
+          title={"Combined Stakes"}
+          value={props.stake?.combinedStakes}
+          containerClass={props.containerClass}
+          valueClass={props.valueClass}
+          titleClass={props.titleClass}
+        />
+      ) : null}
+      <StakeValue
+        align={props.align}
+        title={"Required Stake"}
+        value={props.stake?.requiredStake}
+        containerClass={props.containerClass}
+        valueClass={props.valueClass}
+        titleClass={props.titleClass}
+      />
+    </div>
   );
 }
 

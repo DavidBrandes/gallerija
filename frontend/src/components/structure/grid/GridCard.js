@@ -4,7 +4,7 @@ import Image from "../../cardparts/image/Image";
 import Title from "../../cardparts/title/Title";
 import Wishlist from "../../cardparts/wishlist/Wishlist";
 import StakeValues from "../../cardparts/stake/StakeValues";
-import BidButton from "../../cardparts/bid/BidButton";
+import WinLooseBidButton from "../../cardparts/combined/winloose_bidbutton/WinLooseBidButton";
 import Time from "../../cardparts/time/Time";
 
 import { useSelector } from "react-redux";
@@ -39,20 +39,50 @@ function GridCard(props) {
         inView={props.inView}
       ></StakeCallback>
       <div className={classes.imageContainer}>
-        <Image to={`/detail/${props.item.id}`} item={props.item} />
+        <Image
+          to={`/detail/${props.item.id}`}
+          item={props.item}
+          imageClass={classes.image}
+          containerClass={classes.imageContainer}
+        />
       </div>
       <div className={classes.textContainer}>
+        <Title
+          item={props.item}
+          containerClass={classes.titleContainer}
+          titleClass={classes.title}
+          subTitleClass={classes.subTitle}
+        />
         <div className={classes.infoContainer}>
-          <Title title={props.item.title} subTitle={props.item.subTitle} />
-          <StakeValues stake={stake} userStake={userStake} />
+          <div className={classes.leftPart}>
+            <StakeValues
+              stake={stake}
+              userStake={userStake}
+              stakesContainerClass={classes.stakesContainer}
+              containerClass={classes.stakeContainer}
+              valueClass={classes.stakeValue}
+              titleClass={classes.stakeTitle}
+            />
+          </div>
+          <div className={classes.rightPart}>
+            <WinLooseBidButton
+              stake={stake}
+              userStake={userStake}
+              item={props.item}
+              buttonContainerClass={classes.bidButtonContainer}
+              textContainerClass={classes.bidTextContainer}
+            />
+          </div>
         </div>
-        <div className={classes.biddingContainer}>
-          <Time stake={stake} inView={props.inView} />
-          <BidButton item={props.item} stake={stake} userStake={userStake} />
-        </div>
-        <div className={classes.wishlistContainer}>
-          <Wishlist id={props.item.id} />
-        </div>
+        <Time
+          stake={stake}
+          inView={props.inView}
+          containerClass={classes.time}
+        />
+        <Wishlist
+          id={props.item.id}
+          containerClass={classes.wishlistContainer}
+        />
       </div>
     </div>
   );

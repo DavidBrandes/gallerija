@@ -1,3 +1,6 @@
+@value custom-grey, hover-color from '/src/style/colors.css';
+@value max-image-width from '/src/style/size.css';
+
 .container {
   display: flex;
   padding: 0 7%;
@@ -5,9 +8,7 @@
 
   flex-direction: row;
 
-  max-height: 1000px;
-
-  gap: 5%;
+  gap: 7%;
 }
 
 .leftPart {
@@ -17,20 +18,11 @@
 }
 
 .rightPart {
-  flex-grow: 1;
-
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.text {
-  display: flex;
   flex-direction: column;
-
-  width: 100%;
-
-  /* gap: 3.2rem; */
+  flex: 1;
 }
 
 .placeholder {
@@ -38,15 +30,147 @@
   height: 100vh;
 }
 
-@media (max-width: 50em) {
+.imageSmall {
+  height: auto;
+  width: 100%;
+
+  max-width: max-image-width;
+
+  cursor: zoom-in;
+}
+
+.imageBig {
+  width: auto;
+  max-height: 90vh;
+  max-width: 90vw;
+  height: auto;
+
+  cursor: zoom-out;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  width: 100%;
+
+  gap: 1.2rem;
+
+  border-bottom: 1px solid;
+  padding: 2.4rem 0;
+  margin: 0 8rem 1.6rem 8rem;
+}
+
+.subTitle {
+  font-size: 2.4rem;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.descriptionContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+
+  margin-bottom: 3.2rem;
+  width: 100%;
+}
+
+.descrptionTitle {
+  font-size: 1.6rem;
+  color: custom-grey;
+}
+
+.descriptionText {
+  font-size: 1.8rem;
+  padding-left: 0.8rem;
+}
+
+.stakesContainer {
+  margin-top: 2.4rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.stakeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stakeTitle {
+  font-size: 1.6rem;
+  color: custom-grey;
+}
+
+.stakeValue {
+  font-size: 1.8rem;
+}
+
+.time {
+  margin-top: 2.4rem;
+
+  font-size: 1.8rem;
+  text-align: left;
+  padding-top: 1.2rem;
+  width: 100%;
+}
+
+.chanceTextContainer {
+  font-size: 1.8rem;
+  text-align: left;
+  margin-top: 1.6rem;
+  width: 100%;
+}
+
+.wishlistContainer {
+  font-size: 1.6rem;
+}
+
+.wishlistContainer:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.bidButtonContainer {
+  font-size: 2.4rem;
+  margin: 3.2rem 0;
+}
+
+.bidButtonContainer:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.bidTextContainer {
+  font-size: 2.4rem;
+  margin: 3.2rem 0;
+}
+
+@media (max-width: 70em) {
   .container {
     flex-direction: column;
     gap: 3.2rem;
   }
+
+  .time {
+    text-align: center;
+  }
+
+  .chanceTextContainer {
+    text-align: center;
+  }
 }
 
-.bidButton {
-  font-size: 2rem;
-
-  margin-bottom: 3.2rem;
+@media (max-width: 25em) {
+  .descriptionText {
+    font-size: 1.6rem;
+    padding-left: 0;
+  }
 }

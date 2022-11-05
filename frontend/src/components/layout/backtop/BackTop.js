@@ -1,9 +1,7 @@
-import classes from "./css/BackTop.module.css";
-
-function BackTop() {
+function BackTop(props) {
   return (
     <div
-      className={classes.container}
+      className={props.containerClass}
       onClick={() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}

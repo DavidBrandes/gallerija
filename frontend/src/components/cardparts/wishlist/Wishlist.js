@@ -1,5 +1,3 @@
-import classes from "./css/Wishlist.module.css";
-
 import { useSelector, useDispatch } from "react-redux";
 import { updateWishlist } from "../../../store/modules/userSlice";
 import userData from "../../../api/user";
@@ -37,10 +35,8 @@ const Wishlist = React.memo((props) => {
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.text} onClick={click}>
-        {onWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
-      </div>
+    <div className={props.containerClass} onClick={click}>
+      {onWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
     </div>
   );
 });

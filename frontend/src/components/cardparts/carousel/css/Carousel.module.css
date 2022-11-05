@@ -1,20 +1,14 @@
-@value max-image-width from '/src/style/size.css';
-@value overlay-color from '/src/style/colors.css';
+.overlayContainer {
+  position: fixed;
+  max-width: 90%;
+  max-height: 90%;
 
-.imageSmall {
-  height: auto;
-  width: 100%;
+  overflow-y: auto;
 
-  max-width: max-image-width;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.25);
+  background-color: white;
 
-  cursor: zoom-in;
-}
-
-.imageBig {
-  width: auto;
-  max-height: 90vh;
-  max-width: 90vw;
-  height: auto;
-
-  cursor: zoom-out;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

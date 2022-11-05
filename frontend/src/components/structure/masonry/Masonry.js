@@ -32,7 +32,11 @@ function MasonryCardWrapper(props) {
   useEffect(() => {
     if (scrollRef.current && props.scrollTo) {
       console.log("scroll", props.index);
-      scrollRef.current.scrollIntoView({ behavior: "instant" });
+      const timeout = setTimeout(() => {
+        scrollRef.current.scrollIntoView({ behavior: "instant" });
+      }, Number(process.env.REACT_APP_SCROLL_RESTORE_TIMEOUT));
+
+      return () => clearTimeout(timeout)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -120,7 +124,9 @@ function Masonry(props) {
     const newGridItems = [];
     let index = currentIndex;
     for (const item of items) {
-      const scrollTo = index === props.scrollToIndex;
+      let scrollTo = index === props.scrollToIndex;
+
+      console.log("abc", index, props.scrollToIndex);
 
       if (index === artistCardIndex) {
         newGridItems.push(
@@ -136,6 +142,7 @@ function Masonry(props) {
         );
 
         index++;
+        scrollTo = index === props.scrollToIndex;
       }
 
       if (index === infoCardIndex) {
@@ -151,6 +158,7 @@ function Masonry(props) {
         );
 
         index++;
+        scrollTo = index === props.scrollToIndex;
       }
 
       newGridItems.push(
@@ -253,9 +261,9 @@ function Masonry(props) {
         <MasonryCSS
           breakpointCols={{
             default:
-              window.innerWidth <= 640 ? 1 : window.innerWidth <= 1040 ? 2 : 3,
-            640: 1,
-            1040: 2,
+              window.innerWidth <= 800 ? 1 : window.innerWidth <= 1520 ? 2 : 3,
+            800: 1,
+            1520: 2,
             100000: 3,
           }}
           className={classes.container}

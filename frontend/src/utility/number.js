@@ -1,7 +1,9 @@
 function convertCurrency(number) {
-  return `${(number / 100).toLocaleString(
-    process.env.REACT_APP_CURRENCY_LOCALES
-  )}`;
+  if (Number.isFinite(number))
+    return `${(number / 100).toLocaleString(
+      process.env.REACT_APP_CURRENCY_LOCALES
+    )} €`;
+  else return "";
 }
 
 function convertNumber(number) {

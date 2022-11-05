@@ -1,21 +1,22 @@
 import React from "react";
 
-import classes from "./css/ViewButton.module.css";
 import Link from "../../utils/Link";
 
 import { setSearch } from "../../../utility/location";
 
 const ViewButton = React.memo((props) => {
   return (
-    <div className={classes.container}>
-      <Link
-        to={`/detail/${props.item.id}`}
-        beforeNavigate={setSearch.bind(null, { n: props.index + 1 })}
-        state={{ item: props.item }}
-      >
-        <button className={classes.button}>{`View Painting`}</button>
-      </Link>
-    </div>
+    <Link
+      to={`/detail/${props.item.id}`}
+      beforeNavigate={
+        props.index ? setSearch.bind(null, { n: props.index + 1 }) : undefined
+      }
+      state={{ item: props.item }}
+    >
+      <div className={props.containerClass}>
+        <a className={props.textClass}>View Painting</a>
+      </div>
+    </Link>
   );
 });
 

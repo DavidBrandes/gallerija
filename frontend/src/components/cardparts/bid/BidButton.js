@@ -1,11 +1,11 @@
-import classes from "./css/BidButton.module.css";
-
 import React, { useRef, useState } from "react";
 
 import Overlay from "../../utils/Overlay";
 import BidCard from "./BidCard";
 
 import BidContext from "./BidContext";
+
+import classes from "./css/BidButton.module.css";
 
 function BidButton(props) {
   const ref = useRef(null);
@@ -25,7 +25,7 @@ function BidButton(props) {
           setValue,
         }}
       >
-        <Overlay ref={ref} zValue={5}>
+        <Overlay ref={ref} zValue={4} overlayClass={classes.overlayContainer}>
           <BidCard
             id={props.item.id}
             stake={props.stake}
@@ -34,46 +34,14 @@ function BidButton(props) {
           ></BidCard>
         </Overlay>
       </BidContext.Provider>
-      {props.stake &&
-      ((props.stake.vestingStarted && !props.stake.vestingEnded) ||
-        (props.stake.biddingStarted && !props.stake.biddingEnded)) ? (
-        <React.Fragment>
-          {props.userStake <= 0 ? (
-            <div className={classes.container}>
-              <button
-                className={classes.button}
-                onClick={() => {
-                  ref.current.showClick(true);
-                }}
-              >
-                Place a Stake
-              </button>
-            </div>
-          ) : props.stake.biddingStarted ? (
-            <div className={classes.container}>
-              <button
-                className={classes.button}
-                onClick={() => {
-                  ref.current.showClick(true);
-                }}
-              >
-                Raise Stake
-              </button>
-            </div>
-          ) : (
-            <div className={classes.container}>
-              <button
-                className={classes.button}
-                onClick={() => {
-                  ref.current.showClick(true);
-                }}
-              >
-                Update Stake
-              </button>
-            </div>
-          )}
-        </React.Fragment>
-      ) : null}
+      <div
+        onClick={() => {
+          ref.current.showClick(true);
+        }}
+        className={props.containerClass}
+      >
+        {props.children}
+      </div>
     </React.Fragment>
   );
 }

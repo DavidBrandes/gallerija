@@ -6,8 +6,10 @@ function Dropdown(props) {
       <div className={classes.title}>{props.title}</div>
       <div className={classes.wrapper}>
         <div className={classes.items}>
-          {props.items.map((item) => (
-            <div className={classes.item}>{item}</div>
+          {props.items.map((item, index) => (
+            <div className={classes.item} key={index}>
+              {item}
+            </div>
           ))}
         </div>
       </div>

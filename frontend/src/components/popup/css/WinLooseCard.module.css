@@ -1,0 +1,92 @@
+@value hover-color from '/src/style/colors.css';
+
+.container {
+  max-width: 600px;
+  padding: 4.8rem;
+
+  width: 80vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+
+  background-color: white;
+}
+
+.close {
+  position: absolute;
+  top: 2.4rem;
+  right: 2.4rem;
+  font-size: 3rem;
+  stroke-width: 1.7;
+}
+
+.close:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  gap: 1.2rem;
+
+  border-bottom: 1px solid;
+  padding: 2.4rem 3.2rem 1.6rem 3.2rem;
+  margin: 0 auto 1.2rem auto;
+}
+
+.subTitle {
+  font-size: 2.4rem;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.text {
+  font-size: 1.8rem;
+  padding: 3.2rem 6.4rem 4.8rem 6.4rem;
+  line-height: 1.2;
+}
+
+.buttonContainer {
+  font-size: 2rem;
+
+  padding: 1.2rem 2.4rem;
+
+  border: 0.1rem solid;
+  border-radius: 1px;
+}
+
+.buttonContainer:hover {
+  color: hover-color;
+  border-color: hover-color;
+  cursor: pointer;
+}
+
+.buttonText:hover {
+  cursor: pointer;
+
+  color: hover-color;
+  border-color: hover-color;
+}
+
+.overlayContainer {
+  position: fixed;
+  max-width: 90vw;
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.25);
+  background-color: white;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -5,11 +5,9 @@ import Title from "../../cardparts/title/Title";
 import ItemDescription from "../../cardparts/description/ItemDescription";
 import Wishlist from "../../cardparts/wishlist/Wishlist";
 import Time from "../../cardparts/time/Time";
-import BidButton from "../../cardparts/bid/BidButton";
+import WinLooseBidButton from "../../cardparts/combined/winloose_bidbutton/WinLooseBidButton";
 import StakeValues from "../../cardparts/stake/StakeValues";
-import StakeText from "../../cardparts/stake/StakeText";
-import WinText from "../../cardparts/win/WinText";
-import WinChance from "../../cardparts/chance/WinChance";
+import ChanceText from "../../cardparts/combined/chance_text/ChanceText";
 
 import classes from "./css/DetailCard.module.css";
 
@@ -91,22 +89,49 @@ function DetailCard(props) {
               srcLow={item.srcLow}
               srcHigh={item.srcHigh}
               title={item.title}
+              imageBigClass={classes.imageBig}
+              imageSmallClass={classes.imageSmall}
             ></Carousel>
           </div>
           <div className={classes.rightPart}>
-            <div className={classes.text}>
-              <Title title={item.title} subTitle={item.subTitle}></Title>
-              <ItemDescription description={item.description}></ItemDescription>
-              <StakeValues stake={stake} userStake={userStake} />
-              <Time stake={stake} inView={props.inView} />
-              <StakeText stake={stake} />
-              <WinText id={item.id} />
-              <WinChance stake={stake} userStake={userStake} />
-              <div className={classes.bidButton}>
-                <BidButton item={item} userStake={userStake} stake={stake} />
-              </div>
-              <Wishlist id={item.id} />
-            </div>
+            <Title
+              item={item}
+              containerClass={classes.titleContainer}
+              titleClass={classes.title}
+              subTitleClass={classes.subTitle}
+            ></Title>
+            <ItemDescription
+              description={item.description}
+              containerClass={classes.descriptionContainer}
+              titleClass={classes.descriptionTitle}
+              textClass={classes.descriptionText}
+            />
+            <StakeValues
+              stake={stake}
+              userStake={userStake}
+              stakesContainerClass={classes.stakesContainer}
+              containerClass={classes.stakeContainer}
+              valueClass={classes.stakeValue}
+              titleClass={classes.stakeTitle}
+            />
+            <Time
+              stake={stake}
+              inView={props.inView}
+              containerClass={classes.time}
+            />
+            <ChanceText
+              stake={stake}
+              userStake={userStake}
+              containerClass={classes.chanceTextContainer}
+            />
+            <WinLooseBidButton
+              stake={stake}
+              userStake={userStake}
+              item={item}
+              buttonContainerClass={classes.bidButtonContainer}
+              textContainerClass={classes.bidTextContainer}
+            />
+            <Wishlist id={item.id} containerClass={classes.wishlistContainer} />
           </div>
         </div>
       ) : (

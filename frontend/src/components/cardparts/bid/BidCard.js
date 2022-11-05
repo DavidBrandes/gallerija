@@ -2,12 +2,13 @@ import classes from "./css/BidCard.module.css";
 
 import StakeValues from "../stake/StakeValues";
 import Time from "../time/Time";
-import StakeText from "../stake/StakeText";
 import Title from "../title/Title";
-
+import ChanceText from "../combined/chance_text/ChanceText";
 import Fade from "react-bootstrap/Fade";
 
 import React, { useContext, useEffect, useRef } from "react";
+
+import { TbArrowForwardUp } from "react-icons/tb";
 
 import BidContext from "./BidContext";
 
@@ -19,13 +20,8 @@ import { convertNumber, convertFromString } from "../../../utility/number";
 
 import { useDispatch } from "react-redux";
 import { updateStake } from "../../../store/modules/userSlice";
-import { setOpen } from "../../../store/modules/overlaySlice";
 
-import CloseIcon from "../../utils/CloseIcon";
-
-//TODO: memo necessary?
 function BidCard(props) {
-  // const [message, setMessage] = useState("");
   const closeTimeout = Number(process.env.REACT_APP_BID_CARD_CLOSE_TIME);
   const { message, setMessage, inAction, setInAction, value, setValue } =
     useContext(BidContext);
@@ -69,38 +65,59 @@ function BidCard(props) {
   }
 
   useEffect(() => {
-    // dispatch(setOpen({ open: true }));
-    inputRef.current.focus();
+    // inputRef.current.focus();
     return () => {
       if (!inAction) {
         setMessage("");
       }
-      // dispatch(setOpen({ open: false }));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={classes.container}>
-      <div className={classes.close} onClick={() => props.showClick(false)}>
-        <CloseIcon />
-      </div>
-      <div className={classes.title}>
-        <Title title={props.item.title} subTitle={props.item.subTitle} />
-      </div>
+      <TbArrowForwardUp
+        className={classes.close}
+        onClick={() => props.showClick(false)}
+      />
+      <Title
+        item={props.item}
+        containerClass={classes.titleContainer}
+        titleClass={classes.title}
+        subTitleClass={classes.subTitle}
+      />
       <div className={classes.info}>
-        <StakeValues stake={props.stake} userStake={props.userStake} />
-        <div className={classes.stakesText}>
-          <Time stake={props.stake} inView={true} />
-          <StakeText stake={props.stake} />
+        <div className={classes.leftPart}>
+          <StakeValues
+            stake={props.stake}
+            userStake={props.userStake}
+            stakesContainerClass={classes.stakesContainer}
+            containerClass={classes.stakeContainer}
+            valueClass={classes.stakeValue}
+            titleClass={classes.stakeTitle}
+          />
+        </div>
+        <div className={classes.rightPart}>
+          <Time
+            stake={props.stake}
+            inView={true}
+            containerClass={classes.time}
+          />
+          <ChanceText
+            stake={props.stake}
+            userStake={props.userStake}
+            containerClass={classes.chanceTextContainer}
+          />
         </div>
       </div>
       <div className={classes.bid}>
         <div className={classes.input}>
           <span className={classes.inputText}>
-            Please enter below the total stake you would like to submit for this
-            painting. Some more text bli bla blud da di da waffi puffi saffi
-            est. Mogo dobo frubi dubi.
+            Enter below the total stake you would like to submit for this
+            painting, including any previous submissions you may have made. Your
+            chance to win this painting will then be the proportion of this
+            stake compared to the combined sum of all stakes made for this
+            painting.
           </span>
           <div className={classes.inputAction}>
             <div className={classes.inputContainer}>
@@ -112,13 +129,14 @@ function BidCard(props) {
                 onValueChange={(value) => {
                   setValue(convertFromString(value));
                 }}
-                // suffix={" €"}
-                // disableAbbreviations={true}
+                disableAbbreviations={true}
                 intlConfig={{
                   locale: "de-De",
                   currency: "EUR",
                 }}
                 maxLength={7}
+                allowNegativeValue={false}
+                disableGroupSeparators={true}
                 allowDecimals={
                   process.env.REACT_APP_STAKE_ALLOW_DECIMALS === "true"
                 }

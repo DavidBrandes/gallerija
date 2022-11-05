@@ -1,4 +1,5 @@
 @value max-image-width, masonry-card-padding-bottom from '/src/style/size.css';
+@value custom-grey, hover-color from '/src/style/colors.css';
 
 .wrapper {
   padding-bottom: masonry-card-padding-bottom;
@@ -10,27 +11,121 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
 }
 
 .image {
-  width: 100%;
-  height: auto;
-}
+  max-width: 100%;
+  max-height: 100%;
 
-.image:hover {
   cursor: pointer;
 }
 
 .text {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   width: 100%;
 }
 
-.bidbutton {
+.stakesContainer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.stakeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stakeTitle {
+  font-size: 1.6rem;
+  color: custom-grey;
+}
+
+.stakeValue {
+  font-size: 1.8rem;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  gap: 1.2rem;
+
+  border-bottom: 1px solid;
+  padding: 2.4rem 0 1.6rem 0;
+  margin: 0 6.4rem 1.2rem 6.4rem;
+}
+
+.subTitle {
+  font-size: 2.4rem;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.time {
+  font-size: 1.8rem;
+  text-align: center;
+  padding-top: 2.4rem;
+}
+
+.chanceTextContainer {
+  padding-top: 1.2rem;
+
+  font-size: 1.8rem;
+}
+
+.buttonContainer {
   font-size: 2rem;
 
-  margin-bottom: 3.2rem;
+  padding: 1.2rem 2.4rem;
+
+  border: 0.1rem solid;
+  border-radius: 1px;
+}
+
+.buttonContainer:hover {
+  color: hover-color;
+  border-color: hover-color;
+  cursor: pointer;
+}
+
+.buttonText:hover {
+  cursor: pointer;
+
+  color: hover-color;
+  border-color: hover-color;
+}
+
+.wishlistContainer {
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
+}
+
+.wishlistContainer:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.bidButtonContainer {
+  font-size: 2.4rem;
+  margin: 3.2rem 0;
+}
+
+.bidButtonContainer:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.bidTextContainer {
+  font-size: 2.4rem;
+  margin: 3.2rem 0;
 }

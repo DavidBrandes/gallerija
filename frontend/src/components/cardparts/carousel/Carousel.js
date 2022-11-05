@@ -2,8 +2,9 @@ import { default as BootstrapCarousel } from "react-bootstrap/Carousel";
 
 import { useRef } from "react";
 import Overlay from "../../utils/Overlay";
-import classes from "./css/Carousel.module.css";
 import React from "react";
+
+import classes from "./css/Carousel.module.css";
 
 function Image(props) {
   return (
@@ -27,14 +28,14 @@ function ImageWrapper(props) {
         src={props.srcLow}
         alt={props.title}
         click={() => ref.current.showClick(true)}
-        className={classes.imageSmall}
+        className={props.imageSmallClass}
       />
-      <Overlay ref={ref} zValue={3}>
+      <Overlay ref={ref} zValue={3} overlayClass={classes.overlayContainer}>
         <Image
           src={props.srcHigh}
           alt={props.title}
           click={() => ref.current.showClick(false)}
-          className={classes.imageBig}
+          className={props.imageBigClass}
         />
       </Overlay>
     </React.Fragment>
@@ -45,18 +46,15 @@ const Carousel = React.memo((props) => {
   return (
     <React.Fragment>
       {props.srcLow.length > 1 ? (
-        <BootstrapCarousel
-          keyboard={false}
-          className={classes.container}
-          slide={false}
-          interval={null}
-        >
+        <BootstrapCarousel keyboard={false} slide={false} interval={null}>
           {props.srcLow.map((image, i) => (
-            <BootstrapCarousel.Item key={i} className={classes.item}>
+            <BootstrapCarousel.Item key={i}>
               <ImageWrapper
                 srcLow={props.srcLow[i]}
                 srcHigh={props.srcHigh[i]}
                 title={props.title}
+                imageBigClass={props.imageBigClass}
+                imageSmallClass={props.imageSmallClass}
               ></ImageWrapper>
             </BootstrapCarousel.Item>
           ))}
@@ -66,6 +64,8 @@ const Carousel = React.memo((props) => {
           srcLow={props.srcLow[0]}
           srcHigh={props.srcHigh[0]}
           title={props.title}
+          imageBigClass={props.imageBigClass}
+          imageSmallClass={props.imageSmallClass}
         ></ImageWrapper>
       )}
     </React.Fragment>

@@ -1,5 +1,7 @@
 @value max-image-width, grid-card-image-height, grid-card-text-height from '/src/style/size.css';
 @value grid-card-padding-width, grid-card-padding-height from '/src/style/size.css';
+@value custom-grey, hover-color from '/src/style/colors.css';
+
 .container {
   padding: grid-card-padding-height grid-card-padding-width;
 
@@ -14,28 +16,28 @@
   align-items: center;
 }
 
-.imageContainer {
-  width: 100%;
-  height: grid-card-image-height;
-}
-
 .textContainer {
   width: 100%;
   height: grid-card-text-height;
 
-  padding: 2.4rem 1.2rem;
+  padding: 2.4rem 1.2rem 0 1.2rem;
 
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
 }
 
 .infoContainer {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
 
-  gap: 2.4rem;
+  margin-top: 1.6rem;
+}
+
+.rightPart {
+}
+
+.leftPart {
+  flex: 1;
 }
 
 .biddingContainer {
@@ -44,4 +46,104 @@
   justify-content: space-between;
 
   font-size: 1.4rem;
+}
+
+.imageContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  justify-content: center;
+
+  height: grid-card-image-height;
+  min-height: grid-card-image-height;
+
+  max-height: grid-card-image-height;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+
+  cursor: pointer;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  gap: 0.8rem;
+}
+
+.subTitle {
+  font-size: 1.6em;
+}
+
+.title {
+  font-size: 1.8rem;
+}
+
+.stakesContainer {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stakeContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.stakeTitle {
+  font-size: 1.4rem;
+  color: custom-grey;
+}
+
+.stakeValue {
+  font-size: 1.6rem;
+  padding-left: 0.8rem;
+}
+
+.time {
+  font-size: 1.6rem;
+  text-align: center;
+
+  margin-top: 1.6rem;
+}
+
+.bidContainer {
+  font-size: 1.6rem;
+  margin-left: auto;
+}
+
+.bidContainer:hover {
+  cursor: pointer;
+  color: hover-color;
+}
+
+.wishlistContainer {
+  font-size: 1.4rem;
+  margin: 1.2rem auto 0 auto;
+}
+
+.wishlistContainer:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.bidButtonContainer {
+  font-size: 1.6rem;
+  text-align: right;
+}
+
+.bidButtonContainer:hover {
+  color: hover-color;
+  cursor: pointer;
+}
+
+.bidTextContainer {
+  font-size: 1.6rem;
+  text-align: left;
 }

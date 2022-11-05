@@ -1,6 +1,6 @@
 import classes from "./css/Banner.module.css";
 
-import Link from "../utils/Link";
+import Link from "../../utils/Link";
 
 function Banner(props) {
   console.log("banner render");

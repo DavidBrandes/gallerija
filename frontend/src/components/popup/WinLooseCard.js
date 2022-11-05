@@ -1,11 +1,14 @@
 import classes from "./css/WinLooseCard.module.css";
 import Link from "../utils/Link";
 import Overlay from "../utils/Overlay";
+import Title from "../cardparts/title/Title";
+import ViewButton from "../cardparts/view/ViewButton";
 import { useRef, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateShowed } from "../../store/modules/winSlice";
+import { TbArrowForwardUp } from "react-icons/tb";
 
 import store from "../../store/store";
 
@@ -13,60 +16,82 @@ import itemData from "../../api/item";
 
 function WinLooseCardWrapper() {
   const ref = useRef(null);
-  const [item, setItem] = useState({});
+  const itemRef = useRef();
+  const interval = useRef();
   const win = useSelector((state) => state.win.win);
   const dispatch = useDispatch();
 
-  console.log("wind loose render");
+  console.log("win loose render");
 
-  async function openWinLooseCard() {
+  function open() {
+    if (itemRef.current && !store.getState().overlay.open) {
+      clearInterval(interval.current);
+      dispatch(updateShowed());
+      ref.current.showClick(true);
+    }
+  }
+
+  async function loadItem() {
     try {
       const { item } = await itemData.getItem({ id: win.id });
-      setItem(item);
-      if (!ref.current.showOverlay) ref.current.showClick(true);
+      itemRef.current = item;
+      interval.current = setInterval(
+        () => open(),
+        Number(process.env.REACT_APP_WIN_POPUP_INTERVAL)
+      );
     } catch (error) {
       console.error(error);
     }
   }
 
   useEffect(() => {
-    console.log(
-      "open win card",
-      win.id,
-      ref.current.showOverlay,
-      store.getState().overlay.open
-    );
     if (
       win.id !== undefined &&
-      !ref.current.showOverlay &&
       !win.showed &&
       process.env.REACT_APP_SHOW_WIN_POPUP === "true"
-    )
-      openWinLooseCard();
+    ) {
+      loadItem();
 
-    dispatch(updateShowed());
+      return () => clearInterval(interval.current);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [win]);
 
   return (
-    <Overlay ref={ref} zValue={4}>
-      <WinLooseCard item={item} won={win.won} />
+    <Overlay ref={ref} zValue={4} overlayClass={classes.overlayContainer}>
+      <WinLooseCard item={itemRef.current} won={win.won} />
     </Overlay>
   );
 }
 
 function WinLooseCard(props) {
+  const message = props.won
+    ? "Congratulations! You won the bid for a painting."
+    : "Oh no, you lost the bid for a painting... Maybe try your luck wth another one.";
+
   return (
     <div className={classes.container}>
-      <h2>{props.item.title}</h2>
-      <h3>{props.won ? "You won!" : "You lost.."}</h3>
-      <Link to={`/detail/${props.item.id}`} state={{ item: props.item }}>
-        <button
-          className={classes.button}
-          onClick={() => props.showClick(false)}
-        >{`View Painting`}</button>
-      </Link>
+      <TbArrowForwardUp
+        className={classes.close}
+        onClick={() => props.showClick(false)}
+      />
+
+      <Title
+        item={props.item}
+        containerClass={classes.titleContainer}
+        titleClass={classes.title}
+        subTitleClass={classes.subTitle}
+      />
+      <p className={classes.text}>{message}</p>
+      <div onClick={() => props.showClick(false)}>
+        <ViewButton
+          item={props.item}
+          index={props.index}
+          containerClass={classes.buttonContainer}
+          textClass={classes.buttonText}
+        ></ViewButton>
+      </div>
     </div>
   );
 }

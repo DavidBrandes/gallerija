@@ -1,8 +1,8 @@
-@value max-image-width: 400px;
+@value max-image-width: 500px;
 
 @value grid-card-image-height: 35rem;
-@value grid-card-text-height: 22.2rem;
-@value grid-card-padding-height: 3.2rem;
+@value grid-card-text-height: 24.6rem;
+@value grid-card-padding-height: 2.4rem;
 @value grid-card-padding-width: 3.2rem;
 
 @value masonry-card-padding-bottom: 8rem;
