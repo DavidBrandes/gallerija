@@ -1,3 +1,3 @@
 # Gallerija
 
-navigate to gallerija.netlify.app to see it in action
+Check out the idea at gallerija.netlify.app
